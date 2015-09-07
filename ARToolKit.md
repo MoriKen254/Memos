@@ -11,7 +11,10 @@
     - n: x86 ではない．すなわちx64である．
     - n
     - n
-  - make
+  - make(simpleLiteでは以下のメッセージが出る)
+    - cc -o ../../bin/simpleLite simpleLite.o  -L/usr/X11R6/lib -L../../lib -lARgsub_lite -lARvideo -lAR -lglut -lGLU -lGL -lXi -lXmu -lX11 -lm -ljpeg
+    - make[2]: ディレクトリ `/home/morita/dev/sample/ARToolKit/original/ARToolKit/examples/simpleLite' から出ます
+    - (cd twoView;           make -f Makefile)  
 - サンプル実行
   - cd bin
   - ./simpleLite
