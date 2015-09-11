@@ -14,6 +14,9 @@
 - neobundle: http://qiita.com/kazu0620/items/819679ef006d973c6c22
 - unite.vim: http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
 - vimfiler.vim: http://www.karakaram.com/vimfiler
+- vimshell:http://qiita.com/cuminseed/items/162730d678b18adcec67
+  - なぜかNeoBundleでさっぱり入らない。手で入れたほうが速い。
+  - let g:VimShell_EnableInteractive = 1　を忘れずに。
 
 ##リモート通信時のログイン情報入力省略
 - ~/.netrc にユーザ名/パスワードを書く
