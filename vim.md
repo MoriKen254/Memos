@@ -20,6 +20,7 @@
   - NeoBundleLazy で登録しないとダメらしい。
   - エイリアス:http://qiita.com/yamao2253/items/ebba00da9d76ae380fbc
   - let g:VimShell_EnableInteractive = 1　を忘れずに。→自力で入れた場合
+  - 対話型:http://nauthiz.hatenablog.com/entry/20101107/1289140518
 - lightline:http://itchyny.hatenablog.com/entry/20130828/1377653592
   - .vimrcと.gvimrcの両方でNeoBundleしないとうまく動かない。
 - seiya.vim:http://h-miyako.hatenablog.com/entry/2014/12/25/004638
