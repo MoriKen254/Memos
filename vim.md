@@ -16,7 +16,10 @@
 - vimfiler.vim: http://www.karakaram.com/vimfiler
 - vimshell:http://qiita.com/cuminseed/items/162730d678b18adcec67
   - なぜかNeoBundleでさっぱり入らない。手で入れたほうが速い。
-  - let g:VimShell_EnableInteractive = 1　を忘れずに。
+  - 見つかった！http://qiita.com/himinato/items/caf5a0b19ce893a75363
+  - NeoBundleLazy で登録しないとダメらしい。
+  - エイリアス:http://qiita.com/yamao2253/items/ebba00da9d76ae380fbc
+  - let g:VimShell_EnableInteractive = 1　を忘れずに。→自力で入れた場合
 - lightline:http://itchyny.hatenablog.com/entry/20130828/1377653592
   - .vimrcと.gvimrcの両方でNeoBundleしないとうまく動かない。
    
