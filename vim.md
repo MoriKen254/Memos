@@ -17,7 +17,9 @@
 - vimshell:http://qiita.com/cuminseed/items/162730d678b18adcec67
   - なぜかNeoBundleでさっぱり入らない。手で入れたほうが速い。
   - let g:VimShell_EnableInteractive = 1　を忘れずに。
-
+- lightline:http://itchyny.hatenablog.com/entry/20130828/1377653592
+  - .vimrcと.gvimrcの両方でNeoBundleしないとうまく動かない。
+   
 ##リモート通信時のログイン情報入力省略
 - ~/.netrc にユーザ名/パスワードを書く
 ```bash
