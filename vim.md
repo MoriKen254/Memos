@@ -30,6 +30,9 @@
   - http://d.hatena.ne.jp/pcmaster/20090505/p1
 - lightline:http://itchyny.hatenablog.com/entry/20130828/1377653592
   - .vimrcと.gvimrcの両方でNeoBundleしないとうまく動かない。
+  - 以下の二行は.vimrcに必ず記載する
+    - set laststatus=2
+    - set t_Co=256
 - seiya.vim:http://h-miyako.hatenablog.com/entry/2014/12/25/004638
   - vim透過。seiya.vimを~/.vim/plugin にコピー。vimからSeiyaEnable。 
 ##リモート通信時のログイン情報入力省略
