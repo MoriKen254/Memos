@@ -11,7 +11,9 @@
 - 
 
 ##プラグイン使い方
-- neobundle: http://qiita.com/kazu0620/items/819679ef006d973c6c22
+- neobundle
+  - http://qiita.com/kazu0620/items/819679ef006d973c6c22
+  - http://qiita.com/himinato/items/caf5a0b19ce893a75363
 - unite.vim: http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
 - vimfiler.vim: http://www.karakaram.com/vimfiler
 - vimshell:http://qiita.com/cuminseed/items/162730d678b18adcec67
