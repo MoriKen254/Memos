@@ -22,7 +22,8 @@
   - let g:VimShell_EnableInteractive = 1　を忘れずに。→自力で入れた場合
 - lightline:http://itchyny.hatenablog.com/entry/20130828/1377653592
   - .vimrcと.gvimrcの両方でNeoBundleしないとうまく動かない。
-   
+- seiya.vim:http://h-miyako.hatenablog.com/entry/2014/12/25/004638
+  - vim透過。seiya.vimを~/.vim/plugin にコピー。vimからSeiyaEnable。 
 ##リモート通信時のログイン情報入力省略
 - ~/.netrc にユーザ名/パスワードを書く
 ```bash
