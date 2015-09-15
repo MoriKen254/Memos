@@ -6,6 +6,8 @@
   - molokai.vim の場所注意
 - メニューが文字化けする対策
   - http://kaworu.jpn.org/kaworu/2013-05-08-1.php
+- neobundleのセットアップはgit-bashでやる必要がある
+  - ~が1C:\Users\ユーザ名として作業できる
 
 ##俺様チートシート
 - 
