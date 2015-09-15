@@ -6,9 +6,12 @@
   - molokai.vim の場所注意
 - メニューが文字化けする対策
   - http://kaworu.jpn.org/kaworu/2013-05-08-1.php
-- neobundleのセットアップはgit-bashでやる必要がある
+- neobundleのセットアップ、make 等ははgit-bashでやる必要がある
   - ~が1C:\Users\ユーザ名として作業できる
-
+- 32bit と64bit で手順が違う
+  - 64bit: http://qiita.com/akase244/items/ce5e2e18ad5883e98a77
+  - 32bit: http://qiita.com/akase244/items/08f35b2973fdd4937852
+- neobundleの記述は_vimrcと_gvimrcの両方に書かないといけない。どちらか一方だけだと挙動不良となる。
 ##俺様チートシート
 - 
 
