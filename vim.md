@@ -17,8 +17,13 @@
 - neobundleの記述は_vimrcと_gvimrcの両方に書かないといけない。どちらか一方だけだと挙動不良となる。
 
 
-##俺様チートシート
-- 
+##GVimを透過したい
+- ubuntu: ccsmをインストール
+  - インストール手順: http://qiita.com/mayami/items/2635d24c6f67c8277308
+  - 動いた設定: https://forums.ubuntulinux.jp/viewtopic.php?id=13514
+- windows
+  - `_gvimrcに追記`:`set transparency=220`
+  - 
 
 ##プラグイン使い方
 - neobundle
