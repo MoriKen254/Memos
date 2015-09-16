@@ -1,29 +1,30 @@
 set nocompatible
 filetype off
-"
+
+" vim起動時のみruntimepathにneobundle.vimを追加
 if has('vim_starting')
-" 初回起動時のみruntimepathにneobundleのパスを指定する
-set runtimepath+=~/.vim/bundle/neobundle.vim/
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 
-" NeoBundleを初期化
-call neobundle#begin(expand('~/.vim/bundle/'))
-" インストールするプラグインをここに記述
+" neobundle.vimの初期化 
+" NeoBundleを更新するための設定
+call neobundle#begin(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
+
+" 読み込むプラグインを記載
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/vimfiler'
-NeoBundle 'davidhalter/jedi-vim'
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'Shougo/vimproc.vim'
-NeoBundle 'osyo-manga/vim-reunions'
-NeoBundle 'osyo-manga/vim-marching'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimshell'
 call neobundle#end()
-" ファイルタイプ別のプラグイン/インデントを有効にする
 
+" インストールのチェック
 NeoBundleCheck
 
+" 読み込んだプラグインも含め、ファイルタイプの検出、ファイルタイプ別プラグイン/インデントを有効化する
 filetype plugin indent on
 
 "------------------------------------------------------------
@@ -48,7 +49,7 @@ set writebackup											"上書き成功時に~を削除
 set guioptions+=a										"クリップボードを共有(gvim用)
 set clipboard+=unnamed,autoselect		"クリップボードを共有
 set clipboard=unnamedplus						"クリップボードを共有
-set undodir=C:\Users\m-morita\.vim\undo "un~ ファイルを作成しない
+set undodir=C:\Users\morita\.vim\undo "un~ ファイルを作成しない
 "set spelllang=+cjk
 "set spell
 set noundofile
@@ -58,6 +59,11 @@ set encoding=utf-8									"vim
 set fileencoding=utf-8							"保存するファイル
 set termencoding=utf-8							"開くファイル
 
+"** メニュー文字化け対策 ** "
+source $VIMRUNTIME/delmenu.vim
+set langmenu=ja_jp.utf-8
+source $VIMRUNTIME/menu.vim
+
 "** 表示設定 **
 syntax on														"ハイライト表示
 set number													"タイトル
@@ -66,7 +72,6 @@ autocmd GUIEnter * set transparency=240 "半透明
 
 "** カラースキーマ設定 **
 set t_Co=256
-set laststatus=2
 colorscheme molokai
 let g:molokai_original=1
 set background=dark
@@ -80,7 +85,7 @@ set smarttab
 " vimshell {{{
 nmap <silent> vs :<C-u>VimShell<CR>
 nmap <silent> vp :<C-u>VimShellPop<CR>
-" }}
+" }}	
 
 " vimfiler {{{
 let g:vimfiler_as_default_explorer  = 1
@@ -153,5 +158,4 @@ let g:Tex_ViewRule_pdf = 'evince'
 "let g:Tex_ViewRule_pdf = 'mupdf'
 "let g:Tex_ViewRule_pdf = 'firefox -new-window'
 "let g:Tex_ViewRule_pdf = 'chromium --new-window'
-
 
