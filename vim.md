@@ -48,6 +48,8 @@
     - set laststatus=2
     - set t_Co=256
   - ステータスラインをかっこよくする:http://d.hatena.ne.jp/akishin999/20130928/1380373262 
+    - Ritcy は~/tools に、その他は~/tmp/ に入れる。
+    - vim-powerline の方の設定を行う。
 - seiya.vim:http://h-miyako.hatenablog.com/entry/2014/12/25/004638
   - vim透過。seiya.vimを~/.vim/plugin にコピー。vimからSeiyaEnable。 
 - vimgutter: http://kazuph.hateblo.jp/entry/2013/04/17/145339 
