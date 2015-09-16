@@ -47,6 +47,7 @@
   - 以下の二行は.vimrcに必ず記載する
     - set laststatus=2
     - set t_Co=256
+  - ステータスラインをかっこよくする:http://d.hatena.ne.jp/akishin999/20130928/1380373262 
 - seiya.vim:http://h-miyako.hatenablog.com/entry/2014/12/25/004638
   - vim透過。seiya.vimを~/.vim/plugin にコピー。vimからSeiyaEnable。 
 ##リモート通信時のログイン情報入力省略
