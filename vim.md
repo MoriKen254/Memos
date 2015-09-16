@@ -23,7 +23,6 @@
   - 動いた設定: https://forums.ubuntulinux.jp/viewtopic.php?id=13514
 - windows
   - `_gvimrcに追記`:`set transparency=220`
-  - 
 
 ##プラグイン使い方
 - neobundle
