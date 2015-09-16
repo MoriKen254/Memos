@@ -10,3 +10,8 @@
 ##文字入力
 - Mozc Fcitxの動作設定を行う（全体の設定の拡張オプション・ホットッキー その1）
   - http://kledgeb.blogspot.jp/2013/12/ubuntu-fcitx-11-fcitx-1.html
+
+##Kindle for Windows
+ - Wineをインストールすればok: http://mogi2fruits.net/blog/os-software/linux/ubuntu/3008/
+ - 途中'ttf-mscorefonts-installer'がどうのこうのって画面がでるのは←→適当に押して「了解」ボタンまですすんでEnterすれば先に進める。
+ - Kindleのインストーラ実行中に足りないパッケージが云々と言われるので、全部インストールをクリック。
