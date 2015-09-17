@@ -16,6 +16,8 @@
   - OSのビット数によって違う。両方突っ込んでおけばとりあえず問題は無かろうかと。
 - neobundleの記述は_vimrcと_gvimrcの両方に書かないといけない。どちらか一方だけだと挙動不良となる。
 
+##関数定義ジャンプ
+- ctags: http://qiita.com/soramugi/items/7014c866b705e2cd0b95
 
 ##GVimを透過したい
 - ubuntu: ccsmをインストール
