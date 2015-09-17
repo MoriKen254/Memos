@@ -26,6 +26,8 @@
 - windows
   - `_gvimrcに追記`:`set transparency=220`
 
+##拡張子毎の強調表示設定を追加したい
+- `/usr/share/vim/vim74/filetype.vim`を編集する: http://www.mazn.net/blog/2009/08/03/230.html
 ##プラグイン使い方
 - neobundle
   - http://qiita.com/kazu0620/items/819679ef006d973c6c22
