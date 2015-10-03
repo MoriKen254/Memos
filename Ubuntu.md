@@ -15,3 +15,6 @@
  - Wineをインストールすればok: http://mogi2fruits.net/blog/os-software/linux/ubuntu/3008/
  - 途中'ttf-mscorefonts-installer'がどうのこうのって画面がでるのは←→適当に押して「了解」ボタンまですすんでEnterすれば先に進める。
  - Kindleのインストーラ実行中に足りないパッケージが云々と言われるので、全部インストールをクリック。
+
+##Git の状態をpromptで表示
+ - http://tm.root-n.com/unix:command:git:bash_prompt
