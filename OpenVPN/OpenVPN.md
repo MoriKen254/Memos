@@ -47,6 +47,7 @@
       - できないとき
         - http://www.akakagemaru.info/port/faq-disableport.html
       - 二重ルータの場合
+        - traceroute でルータが二重になっていたら、二段階でポート開放しないといけない。 
         - http://www.akakagemaru.info/port/metarugia-ybbhikari.html
       
 #積んだ
