@@ -11,8 +11,11 @@
   - クライアントがubuntuの場合は`;comp-lzo`は有効にしてみること
     - パスワードはとりあえずnishidalab123
 
-  - グローバルIPアドレスはここから取得
-    - http://www.cman.jp/network/support/go_access.cgi
+  - 接続確認
+    - まずは同一ネットワーク内で接続確認する。
+    - そこでうまく行くことを確認した後、グローバルIPから接続。
+    - グローバルIPアドレスはここから取得
+      - http://www.cman.jp/network/support/go_access.cgi
 
 #トラブル究明
 - `failed to update database TXT_DB error number 2` でclient.crt が作れない
@@ -27,8 +30,10 @@
   - https://www.gsais.kyoto-u.ac.jp/staff/liang/oss/ovpn2_howto_ja.html#start
   - グローバルIP調査ツール
     - http://www.cman.jp/network/support/go_access.cgi
-  - ポート確認ツール。上記ツールでグローバルIPを調べ、1194が開放されているか確認。
+  - TCPポート確認ツール。上記ツールでグローバルIPを調べ、1194が開放されているか確認。
     - http://www.cman.jp/network/support/port.html
+  - UDPポート確認は別ツールで
+    - 確認中 
   - ルータ、サーバ、クライアント全てのFireWallをUDPで1194開放する。
     - Ubuntu ファイアウォール設定ツール
       - http://sicklylife.at-ninja.jp/memo/ubuntu1404/gufw.html
@@ -48,3 +53,6 @@
 - ネットワークは、1. アパート ー 2.うちのバッファロー ー 3. PC
 - 2 は開放できるが、1 は任意に開放できない！1はアパート側のルータで、ただで使わせてもらっている…。
       
+# ATERM
+- ポート開放手順
+  - http://www.akakagemaru.info/port/mr03ln-portfw.html
