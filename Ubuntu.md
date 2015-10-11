@@ -18,3 +18,9 @@
 
 ##Git の状態をpromptで表示
  - http://tm.root-n.com/unix:command:git:bash_prompt
+
+##PyCharm
+ - ubuntuにpycharmをインストールする
+   - http://ng3rdstmadgke.hatenablog.com/entry/2015/09/06/223832
+ - pycharm でVimバインド
+   - http://blog3.logosware.com/archives/2477
