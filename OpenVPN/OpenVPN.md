@@ -54,5 +54,7 @@
 - 2 は開放できるが、1 は任意に開放できない！1はアパート側のルータで、ただで使わせてもらっている…。
       
 # ATERM
+- こっちでやるとつながったよ。
 - ポート開放手順
   - http://www.akakagemaru.info/port/mr03ln-portfw.html
+- `Incoming packet rejected from ...` が出たら、同じネットワークいるのが原因。サーバとクライアントを別ネットワークにしてから接続すればつながるはず。
