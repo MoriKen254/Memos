@@ -15,7 +15,7 @@
   1. OpeVPNを設定する
   1. ファイアウォールを設定する
   1. ルータを設定する
-  1. クライアント証明書の発行
+  1. クライアント証明書を発行する
 1. クライアント設定
   1. クライアントアプリをインストールする
   1. クライアントアプリを設定する
@@ -53,53 +53,50 @@
       - http://www.akakagemaru.info/port/mr03ln-portfw.html
     - Buffalo WHR-300HP2 の場合
       - http://www.akakagemaru.info/port/meruko/whr-300hp2-portfw.html
+  1. クライアント証明書を発行する
+    - `# ./pkitool client1`で`failed to update database TXT_DB error number 2` というエラーが出る
+      - `KEY_CN=someuniqueclientcn ./pkitool client` で上記エラーを回避。
+      - 回避策としてコモンネームを変更しないと鍵作成ができないため。
+      - 参考：http://aclock.org/?p=101
+    - 上記コマンドで、`Error Loading extension section usr_cert` というエラーが出る
+      - `/etc/openvpn/easy-rsa`で `perl -p -i -e 's|^(subjectAltName=)|#$1|;' /etc/openvpn/easy-rsa/openssl-1.0.0.cnf` をすると解決。
+        - Ubuntu 14.04のバグで、`openssl-1.0.0.cnf`がおかしいらしいので、上記コメンド修復する。
+        - 参考：http://stackoverflow.com/questions/24255205/error-loading-extension-section-usr-cert
     - 接続確認
       - まずは同一ネットワーク内で接続確認する。
       - そこでうまく行くことを確認した後、グローバルIPから接続。
       - グローバルIPアドレスはここから取得
         - http://www.cman.jp/network/support/go_access.cgi
-
-#トラブル究明
-- `failed to update database TXT_DB error number 2` でclient.crt が作れない
-  - とりあえずこのコマンド
-    - `KEY_CN=someuniqueclientcn ./pkitool client`
-  - 今度は`Error Loading extension section usr_cert` で作れねー。
-    - `openssl-1.0.0.cnf`がバグっているらしい。
-    - easy-rsa で次のコードを実行して`openssl-1.0.0.cnf` を修復する。
-      - `perl -p -i -e 's|^(subjectAltName=)|#$1|;' /etc/openvpn/easy-rsa/openssl-1.0.0.cnf`
-
-- クライアント側で`TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)`が出る
-  - https://www.gsais.kyoto-u.ac.jp/staff/liang/oss/ovpn2_howto_ja.html#start
-  - グローバルIP調査ツール
-    - http://www.cman.jp/network/support/go_access.cgi
-  - TCPポート確認ツール。上記ツールでグローバルIPを調べ、1194が開放されているか確認。
-    - http://www.cman.jp/network/support/port.html
-  - UDPポート確認は別ツールで
-    - 確認中 
-  - ルータ、サーバ、クライアント全てのFireWallをUDPで1194開放する。
-    
-    - 我が家でのルータ設定
-      - http://192.168.11.1/
-        - id(デフォ): admin
-        - pass(デフォ): password
-      - ゲーム&アプリから登録。UDPポート1194を許可する。
-      - やりかた
-        - http://www.akakagemaru.info/port/meruko/whr-300hp2-portfw.html
-      - できないとき
-        - http://www.akakagemaru.info/port/faq-disableport.html
-      - 二重ルータの場合
-        - traceroute でルータが二重になっていたら、二段階でポート開放しないといけない。 
-        - http://www.akakagemaru.info/port/metarugia-ybbhikari.html
-      
-#積んだ
-- ネットワークは、1. アパート ー 2.うちのバッファロー ー 3. PC
-- 2 は開放できるが、1 は任意に開放できない！1はアパート側のルータで、ただで使わせてもらっている…。
-      
-# ATERM (モバイルWifiルータ)
-- こっちでやるとつながったよ。
-
-- `Incoming packet rejected from ...` が出たら、同じネットワークいるのが原因。サーバとクライアントを別ネットワークにしてから接続すればつながるはず。
-- 成功した時のメッセージ
+1. クライアント設定
+  1. クライアントアプリをインストールする
+    - 特になし。
+  1. クライアントアプリを設定する
+    - サーバ側のグローバルIPを確認する。
+      - http://www.cman.jp/network/support/go_access.cgi　にサーバPCでアクセスする。
+      - そしてこんな風に入力する。
+      ![グローバルIPの設定](images/vpnux_globalip.png)
+    - 最初に同一LAN内で確認したほうがいい。
+      - こんな構成を想定。
+      ![同一LAN内VPN構成](images/vpn_net_structure_local.png)
+      - この場合はこんな風に入力。
+      ![グローバルIPの設定](images/vpnux_localip.png)
+  1. ファイアウォールを設定する
+    - UDPでポート1194を開放する。OSにあった設定をすること。
+  1. 接続する
+    - クライアント側で`TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)`が出る
+      - ここを見ながら原因追求する
+        - https://www.gsais.kyoto-u.ac.jp/staff/liang/oss/ovpn2_howto_ja.html#start
+      - ポートが開放されているか確認する
+        - TCPポート確認ツールはwebからhttpでアクセスして確認できる。
+          - http://www.cman.jp/network/support/port.html
+        - ここを見ながら色々なTCPポートを開放して確認してみることができる。
+          - http://www.akakagemaru.info/port/faq-disableport.html
+          - ブラウザで`サーバIP:ポート番号`と入力。例: `192.168.1.3:8080`等。
+          - Windowsアプリの`ANHTTPD`超便利。
+        - UDPポート確認ツールはWireSharkらしい。使う前につながったから未検証。
+    - クライアント側で`TCP/UDP: Incoming packet rejected from xxx.xxx.xxx.xxx:1194, expected peer address: xxx.xxx.xxx.xxx:1194 (allow this incoming source address/port by removing --remote or adding --float)  ...` が出る
+      - 同じネットワークいるのが原因。サーバとクライアントを別ネットワークにしてから接続すればつながるはず。
+    - 成功した時のメッセージ
 ```
 2015/10/12 0:35:06 OpenVPN 2.3.7 x86_64-w64-mingw32 [SSL (OpenSSL)] [LZO] [PKCS11] [IPv6] built on Jul  9 2015
 2015/10/12 0:35:06 library versions: OpenSSL 1.0.1p 9 Jul 2015, LZO 2.08
@@ -169,3 +166,23 @@
 2015/10/12 0:36:26 Route addition via IPAPI succeeded [adaptive]
 2015/10/12 0:36:26 Initialization Sequence Completed
 ```
+
+##個人メモ
+- 我が家でのルータ設定
+  - http://192.168.11.1/
+    - id(デフォ): admin
+    - pass(デフォ): password
+  - ゲーム&アプリから登録。UDPポート1194を許可する。
+  - やりかた
+    - http://www.akakagemaru.info/port/meruko/whr-300hp2-portfw.html
+  - できないとき
+    - http://www.akakagemaru.info/port/faq-disableport.html
+  - 二重ルータの場合
+    - traceroute でルータが二重になっていたら、二段階でポート開放しないといけない。 
+    - http://www.akakagemaru.info/port/metarugia-ybbhikari.html
+- 積んだ
+  - ネットワークは、1. アパート ー 2.うちのバッファロー ー 3. PC
+  - 2 は開放できるが、1 は任意に開放できない！1はアパート側のルータで、ただで使わせてもらっている…。
+      
+- ATERM (モバイルWifiルータ)
+  - こっちでやるとつながったよ。
