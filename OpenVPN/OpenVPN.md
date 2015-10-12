@@ -1,21 +1,63 @@
+#Ubuntuをサーバ、WindowsをクライアントでOpenVPNしてみる　構成1
+## 実現したい構成
+- 構成図
+![実現したい構成](images/vpn_net_structure_global.png)
+- NAT(ルーティング方式)、tunで構成。
+  - たまたま見たサンプルがこうだったからやってみた。
+  - ROSの場合はブリッジ方式で、tapで構成すべき。後述する。
+
 #手順
-- 基本はコレ。
-  - http://felis-silvestris-catus.hatenablog.com/entry/2015/05/27/222434
-- Tips
-  - `su -i` で入った後迷子になる。一回`cd /`でてっぺんに行くといい。
-  - `./build-dh` はちと時間食う。
-  - ` openvpn --genkey --secret`は` openvpn --genkey --secret ta.key` が正しい。
-  - `/etc/openvpn/easy-rsa/keys# cp ca.crt server.crt server.key dh2048.pem ta.key /etc/openvpn/
-` が正しい。
+## 大まかな手順
+1. サーバ設定
+  1. rootでログイン
+  1. OpenVPNをUbuntuにインストールする
+  1. サーバ証明書を発行する
+  1. OpeVPNを設定する
+  1. ファイアウォールを設定する
+  1. ルータを設定する
+  1. クライアント証明書の発行
+1. クライアント設定
+  1. クライアントアプリをインストールする
+  1. クライアントアプリを設定する
+  1. ファイアウォールを設定する
+  1. 接続する
 
-  - クライアントがubuntuの場合は`;comp-lzo`は有効にしてみること
-    - パスワードはとりあえずnishidalab123
+## 基本的に従ったサイト
+- http://felis-silvestris-catus.hatenablog.com/entry/2015/05/27/222434
 
-  - 接続確認
-    - まずは同一ネットワーク内で接続確認する。
-    - そこでうまく行くことを確認した後、グローバルIPから接続。
-    - グローバルIPアドレスはここから取得
-      - http://www.cman.jp/network/support/go_access.cgi
+##つまづいた箇所の補足メモ
+1. サーバ設定
+  1. rootでログイン
+    - `su -i` で入った後迷子になる。一回`cd /`でてっぺんに行くといい。
+  1. OpeVPNを設定する
+    - 得になし
+  1. サーバ証明書を発行する
+    - `./build-dh` はちと時間食う。
+    - `openvpn --genkey --secret`は` openvpn --genkey --secret ta.key` が正しい。
+    - `cp ca.crt server.crt server.keydh1024.pem ta.key /etc/openvpn`は`cp ca.crt server.crt server.key dh2048.pem ta.key /etc/openvpn/` が正しい。
+  1. OpeVPNを設定する
+    - DHパラメータの指定
+      - `dh dh2048.pem` は、サーバ証明書を発行した時同一のものを選択すること。
+    - 通信暗号化の設定
+      - `cipher AES-256-CBC`はクライアント側の設定でも使うので、必ずこれに合わせること。
+    - その他のオプション 
+      - クライアントがiPhoneの場合は`;comp-lzo`を無効にするらしい。PCなら有効にした方が通信は容量が下がるはず。
+  1. ファイアウォールを設定する
+    - Ubuntu ファイアウォール設定ツール
+      - http://sicklylife.at-ninja.jp/memo/ubuntu1404/gufw.html
+      - UDPでポート1194をオープンすること。
+  1. ルータを設定する
+    - ルータのグローバルIPにポート1194でアクセス要求があった場合に、どのPCにフォワードするかを設定する。
+    - 自分の環境で使用しているルータにアクセスして、ポートフォワードの設定すること。
+    - NEC Aterm MR03LN の場合
+      - http://www.akakagemaru.info/port/mr03ln-portfw.html
+    - Buffalo WHR-300HP2 の場合
+      - http://www.akakagemaru.info/port/meruko/whr-300hp2-portfw.html
+    - 接続確認
+      - まずは同一ネットワーク内で接続確認する。
+      - そこでうまく行くことを確認した後、グローバルIPから接続。
+      - グローバルIPアドレスはここから取得
+        - http://www.cman.jp/network/support/go_access.cgi
 
 #トラブル究明
 - `failed to update database TXT_DB error number 2` でclient.crt が作れない
@@ -35,8 +77,7 @@
   - UDPポート確認は別ツールで
     - 確認中 
   - ルータ、サーバ、クライアント全てのFireWallをUDPで1194開放する。
-    - Ubuntu ファイアウォール設定ツール
-      - http://sicklylife.at-ninja.jp/memo/ubuntu1404/gufw.html
+    
     - 我が家でのルータ設定
       - http://192.168.11.1/
         - id(デフォ): admin
@@ -56,8 +97,7 @@
       
 # ATERM (モバイルWifiルータ)
 - こっちでやるとつながったよ。
-- ポート開放手順
-  - http://www.akakagemaru.info/port/mr03ln-portfw.html
+
 - `Incoming packet rejected from ...` が出たら、同じネットワークいるのが原因。サーバとクライアントを別ネットワークにしてから接続すればつながるはず。
 - 成功した時のメッセージ
 ```
