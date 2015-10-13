@@ -46,10 +46,10 @@ VPN を構成する方式は、大きく二つ。
 - [Ubuntu 14.04 で OpenVPN ](http://felis-silvestris-catus.hatenablog.com/entry/2015/05/27/222434)
 - OpenVPNの設定
   - [その1：認証用ファイルの生成](https://fuketch.wordpress.com/2013/02/19/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE1%EF%BC%9A%E8%AA%8D%E8%A8%BC%E7%94%A8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E7%94%9F%E6%88%90%EF%BC%89/)
-  - [その2：ブリッジモードサーバー設定](https://fuketch.wordpress.com/2013/02/26/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE2%E3%81%AE1%EF%BC%9A%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8%E3%83%A2%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AE%E6%8E%A5%E7%B6%9A1%EF%BC%89/)
-  - [その3：ブリッジモードクライアント設定](https://fuketch.wordpress.com/2013/02/26/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE3%EF%BC%9A%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8%E3%83%A2%E3%83%BC%E3%83%89%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E8%A8%AD/)
   - [その4：トンネルモードサーバー設定](https://fuketch.wordpress.com/2013/09/10/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE4%EF%BC%9A%E3%83%88%E3%83%B3%E3%83%8D%E3%83%AB%E3%83%A2%E3%83%BC%E3%83%89%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E8%A8%AD%E5%AE%9A%EF%BC%89/)
   - [その5：トンネルモードクライアント設定](https://fuketch.wordpress.com/2013/09/10/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE5%EF%BC%9A%E3%83%88%E3%83%B3%E3%83%8D%E3%83%AB%E3%83%A2%E3%83%BC%E3%83%89%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E8%A8%AD/)
+- [OpenVPNで構築する超簡単VPN入門](http://www.amazon.co.jp/OpenVPN%E3%81%A7%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E8%B6%85%E7%B0%A1%E5%8D%98VPN%E5%85%A5%E9%96%80%E2%80%95Windows-Mac-OS-X-Linux%E5%AF%BE%E5%BF%9C/dp/4899771673)
+
 #### つまづいた箇所の補足メモ
 1. サーバ設定
   1. rootでログイン
@@ -104,16 +104,14 @@ VPN を構成する方式は、大きく二つ。
       - クライアントがiPhoneの場合は`;comp-lzo`を無効にするらしい。PCなら有効にした方が通信は容量が下がるはず。
   1. ファイアウォールを設定する
     - ファイアウォール設定ツール [gufw](http://sicklylife.at-ninja.jp/memo/ubuntu1404/gufw.html) をインストール
+    - UDPでポート1194をオープンすること。下記のような画面になるはず。
       - `sudo apt-get install gufw`
-      - 
-      - UDPでポート1194をオープンすること。
+        ![gufw_check](images/gufw_check.png)
   1. ルータを設定する
     - ルータのグローバルIPにポート1194でアクセス要求があった場合に、どのPCにフォワードするかを設定する。
     - 自分の環境で使用しているルータにアクセスして、ポートフォワードの設定すること。
-    - NEC Aterm MR03LN の場合
-      - http://www.akakagemaru.info/port/mr03ln-portfw.html
-    - Buffalo WHR-300HP2 の場合
-      - http://www.akakagemaru.info/port/meruko/whr-300hp2-portfw.html
+    - [NEC Aterm MR03LN の場合](http://www.akakagemaru.info/port/mr03ln-portfw.html)
+    - [Buffalo WHR-300HP2 の場合](http://www.akakagemaru.info/port/meruko/whr-300hp2-portfw.html)
   1. クライアント証明書を発行する
     - `# ./pkitool client1`で`failed to update database TXT_DB error number 2` というエラーが出る
       - `KEY_CN=someuniqueclientcn ./pkitool client` で上記エラーを回避。
@@ -126,17 +124,15 @@ VPN を構成する方式は、大きく二つ。
     - 接続確認
       - まずは同一ネットワーク内で接続確認する。
       - そこでうまく行くことを確認した後、グローバルIPから接続。
-      - グローバルIPアドレスはここから取得
-        - http://www.cman.jp/network/support/go_access.cgi
+      - グローバルIPアドレスは[ここから取得](http://www.cman.jp/network/support/go_access.cgi)
 1. クライアント設定
   1. クライアントアプリをインストールする
     - 特になし。
   1. クライアントアプリを設定する
-    - サーバ側のグローバルIPを確認する。
-      - http://www.cman.jp/network/support/go_access.cgi　にサーバPCでアクセスする。
-      - そしてこんな風に入力する。
+    - [このサイト](http://www.cman.jp/network/support/go_access.cgi)でサーバ側のグローバルIPを確認する。
+      - そしてクライアントアプリにこんな風に入力する。
       ![グローバルIPの設定](images/vpnux_globalip.png)
-    - 最初に同一LAN内で確認したほうがいい。
+    - もしうまく行かない時、原因切り分けのため最初に同一LAN内で確認したほうがいい。
       - こんな構成を想定。
       ![同一LAN内VPN構成](images/vpn_net_structure_local.png)
       - この場合はこんな風に入力。
@@ -307,14 +303,18 @@ VPN を構成する方式は、大きく二つ。
           RXバイト:5784367971 (5.7 GB)  TXバイト:8292467773 (8.2 GB)
 
         ```
-    1. クライアント側
+    1. クライアント側(Windows7)
       - `ipconfig` で次のような構成を取る
         - `10.8.0.6` が出てくるはず。
+        ![client_ipconfig](images/client_ipconfig.png)
       - ネットワークの設定で次のような構成を取る
-      - `ping 10.8.0.1` が通る。
-      - `pint 192.168.179.6` が通る。感動！
+        ![client_netwok_setting](images/client_netwok_setting.png)
+      - `ping 10.8.0.1`、`ping 192.168.179.6` が通る。感動！
+        ![client_ping_check](images/client_ping_check.png)
         - これを`ROS_MASTER_URI`に登録すればよさげ。
-        
+      - `route print` で次のような表示となる。
+        ![client_route_print](images/client_route_print.png)
+      
 #### 個人メモ
 - 我が家でのルータ設定
   - http://192.168.11.1/
@@ -336,6 +336,15 @@ VPN を構成する方式は、大きく二つ。
   - こっちでやるとつながったよ。
 
 ## 構成1: ブリッジ方式(tap)
+### 手順
+
+#### 基本的に従った情報
+- [OpenVPNで構築する超簡単VPN入門](http://www.amazon.co.jp/OpenVPN%E3%81%A7%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E8%B6%85%E7%B0%A1%E5%8D%98VPN%E5%85%A5%E9%96%80%E2%80%95Windows-Mac-OS-X-Linux%E5%AF%BE%E5%BF%9C/dp/4899771673)
+- OpenVPNの設定
+  - [その1：認証用ファイルの生成](https://fuketch.wordpress.com/2013/02/19/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE1%EF%BC%9A%E8%AA%8D%E8%A8%BC%E7%94%A8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E7%94%9F%E6%88%90%EF%BC%89/)
+  - [その2：ブリッジモードサーバー設定](https://fuketch.wordpress.com/2013/02/26/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE2%E3%81%AE1%EF%BC%9A%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8%E3%83%A2%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AE%E6%8E%A5%E7%B6%9A1%EF%BC%89/)
+  - [その3：ブリッジモードクライアント設定](https://fuketch.wordpress.com/2013/02/26/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE3%EF%BC%9A%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8%E3%83%A2%E3%83%BC%E3%83%89%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E8%A8%AD/)
+
 ### 現状
 - Ubuntu 側でブリッジ構成を取るとつながらない。ブリッジ構成を取るとインターネットにも繋がらなくなる。
 - Ubuntu 側でブリッジ構成を取らなければ、ツール上ではつながっているよう。ping は通らない。
