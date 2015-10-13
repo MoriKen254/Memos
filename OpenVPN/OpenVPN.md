@@ -8,11 +8,14 @@ VPN を構成する方式は、大きく二つ。
   - 1対多(サーバ+同一ネットワーク内端末)だと、ちょっと大変。
   - クライアントには、サーバ側ネットワークのローカルIP(例:192.168.11.x)と別ドメインのIP(10.0.8.x)が振られる。
 
-###ブリッジ方式(tap)
+### ブリッジ方式(tap)
 - 特長
   - 1対多に対応しているけど、設定がちょっと面倒。
   - サーバ側でブリッジ接続の設定が必須。
   - クライアントには、サーバ側ネットワークのローカルIP(例:192.168.11.x)と同一ドメインのIPが振られる。
+
+### 参考リンク
+  - [Gentoo Linuxな生活​/OpenVPNで悩む](http://femt.ddo.jp/modules/xpwiki/?Gentoo%20Linux%E3%81%AA%E7%94%9F%E6%B4%BB%2FOpenVPN%E3%81%A7%E6%82%A9%E3%82%80)
 
 ## 共通手順
 1. サーバ設定
@@ -58,6 +61,9 @@ VPN を構成する方式は、大きく二つ。
     - `server.conf` の実績ファイルは[これ](https://github.com/mum254/Memos/blob/master/OpenVPN/easy-rsa_back_TUN_151013_success/server.conf) 。TLSとかcipherの入力を省いて簡単構成にしている。
     - ファイアウォール設定ツールで次のような画面が表示される
       - `ルール`でUDPを開放している様子が表示されており、`リスニングレポート`でopenvpnが起動中であることを示す。
+    - 起動、停止、状態確認は `service openvpn start/stop/status` でやるといい。
+      - `service openvpn status`で起動状態をチェックできる。
+      - 非同期なのでshellを余計に潰さない。
     - `/etc/openvpn/openvpn.log`で以下のように出力されればよい。
     ```
       Tue Oct 13 22:13:13 2015 OpenVPN 2.3.2 x86_64-pc-linux-gnu [SSL (OpenSSL)] [LZO] [EPOLL] [PKCS11] [eurephia] [MH] [IPv6] built on Dec  1 2014
@@ -113,6 +119,8 @@ VPN を構成する方式は、大きく二つ。
     - 自分の環境で使用しているルータにアクセスして、ポートフォワードの設定すること。
       - [NEC Aterm MR03LN の場合](http://www.akakagemaru.info/port/mr03ln-portfw.html)
       - [Buffalo WHR-300HP2 の場合](http://www.akakagemaru.info/port/meruko/whr-300hp2-portfw.html)
+    - Aterm MR03LN で設定した後の画面
+      ![aterm_ip_forward](images/aterm_ip_forward.png) 
   1. クライアント証明書を発行する
     - `# ./pkitool client1`で`failed to update database TXT_DB error number 2` というエラーが出る
       - `KEY_CN=someuniqueclientcn ./pkitool client` で上記エラーを回避。
@@ -159,6 +167,9 @@ VPN を構成する方式は、大きく二つ。
         - UDPポート確認ツールはWireSharkらしい。使う前につながったから未検証。
     - クライアント側で`TCP/UDP: Incoming packet rejected from xxx.xxx.xxx.xxx:1194, expected peer address: xxx.xxx.xxx.xxx:1194 (allow this incoming source address/port by removing --remote or adding --float)  ...` が出る
       - 同じネットワークいるのが原因。サーバとクライアントを別ネットワークにしてから接続すればつながるはず。
+    - クライアント側で`VERIFY ERROR` が出る
+      - 認証鍵の作成ミスの可能性あり。鍵を作成し直す。
+      - 参考：http://nlogn.ath.cx/archives/001023.html
     - 成功した時のメッセージ(クライアント)
       - 初期処理 
       ```
@@ -354,7 +365,9 @@ VPN を構成する方式は、大きく二つ。
 
 ### 現状
 - Ubuntu 側でブリッジ構成を取るとつながらない。ブリッジ構成を取るとインターネットにも繋がらなくなる。
-- Ubuntu 側でブリッジ構成を取らなければ、ツール上ではつながっているよう。ping は通らない。
+- Ubuntu 側でブリッジ構成を取らなければ、ツール上ではつながっているよう。
+  ![client_ipconfig_bridge](images/client_ipconfig_bridge.png)
+- でも、ping は通らない。
 - メモ
   - `ifconfig`
     ```
