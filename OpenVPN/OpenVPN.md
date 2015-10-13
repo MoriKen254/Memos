@@ -1,6 +1,6 @@
 #UbuntuをVPNサーバ、WindowsをVPNクライアントでOpenVPNしてみる
 ## はじめに
-きっかけは、[ROSでVPN](http://answers.ros.org/question/11045/how-to-set-up-vpn-between-ros-machines/)接続をしたいと思ったところからスタートして、相当ハマった。とりあえず備忘録。
+きっかけは、[ROSでVPNを使いたい](http://answers.ros.org/question/11045/how-to-set-up-vpn-between-ros-machines/)と思ったところからスタートして、相当ハマった。とりあえず備忘録。
 
 ## 概要
 VPN を構成する方式は、大きく二つ。
@@ -170,7 +170,8 @@ VPN を構成する方式は、大きく二つ。
     - `OpenVPN for Windows`か`vpnux`が便利。
   1. クライアントアプリを設定する
     1. OpenVPN
-      1. `client.conf` を設定する。実績ファイルは[これ](https://github.com/mum254/Memos/blob/master/OpenVPN/easy-rsa_back_TUN_151013_success/client_tun.ovpn)。
+      - `client.conf` を設定する。実績ファイルは[これ](https://github.com/mum254/Memos/blob/master/OpenVPN/easy-rsa_back_TUN_151013_success/client_tun.ovpn)。
+      - エディタを管理者として実行しないと`client.conf`を編集できないので注意。
     1. vpnux
       - [このサイト](http://www.cman.jp/network/support/go_access.cgi)でサーバ側のグローバルIPを確認する。
         - そしてクライアントアプリにこんな風に入力する。
