@@ -30,6 +30,7 @@ VPN を構成する方式は、大きく二つ。
     - tunとtapで違いがある部分
   1. ファイアウォールを設定する
   1. 接続する
+  1. 接続を確認する
 
 ## 構成1: ルーティング方式(tun)
 ### 実現したい構成
@@ -49,7 +50,30 @@ VPN を構成する方式は、大きく二つ。
   1. rootでログイン
     - `su -i` で入った後迷子になる。一回`cd /`でてっぺんに行くといい。
   1. OpeVPNを設定する
-    - 得になし
+    - 実行後、ファイアウォール設定ツールで次のような画面が表示される
+      - `ルール`でUDPを開放している様子が表示されており、`リスニングレポート`でopenvpnが起動中であることを示す。
+    - `/etc/openvpn/openvpn.log`で以下のように出力されればよい。
+    ```
+      Tue Oct 13 22:13:13 2015 OpenVPN 2.3.2 x86_64-pc-linux-gnu [SSL (OpenSSL)] [LZO] [EPOLL] [PKCS11] [eurephia] [MH] [IPv6] built on Dec  1 2014
+      Tue Oct 13 22:13:13 2015 Diffie-Hellman initialized with 1024 bit key
+      Tue Oct 13 22:13:13 2015 Socket Buffers: R=[212992->131072] S=[212992->131072]
+      Tue Oct 13 22:13:13 2015 ROUTE_GATEWAY 192.168.179.1/255.255.255.0 IFACE=eth2 HWADDR=a4:12:42:3b:fa:99
+      Tue Oct 13 22:13:13 2015 TUN/TAP device tun0 opened
+      Tue Oct 13 22:13:13 2015 TUN/TAP TX queue length set to 100
+      Tue Oct 13 22:13:13 2015 do_ifconfig, tt->ipv6=0, tt->did_ifconfig_ipv6_setup=0
+      Tue Oct 13 22:13:13 2015 /sbin/ip link set dev tun0 up mtu 1500
+      Tue Oct 13 22:13:13 2015 /sbin/ip addr add dev tun0 local 10.8.0.1 peer 10.8.0.2
+      Tue Oct 13 22:13:13 2015 /sbin/ip route add 10.8.0.0/24 via 10.8.0.2
+      Tue Oct 13 22:13:13 2015 GID set to nogroup
+      Tue Oct 13 22:13:13 2015 UID set to nobody
+      Tue Oct 13 22:13:13 2015 UDPv4 link local (bound): [undef]
+      Tue Oct 13 22:13:13 2015 UDPv4 link remote: [undef]
+      Tue Oct 13 22:13:13 2015 MULTI: multi_init called, r=256 v=256
+      Tue Oct 13 22:13:13 2015 IFCONFIG POOL: base=10.8.0.4 size=62, ipv6=0
+      Tue Oct 13 22:13:13 2015 IFCONFIG POOL LIST
+      Tue Oct 13 22:13:13 2015 Initialization Sequence Completed
+      Tue Oct 13 22:14:42 2015 210.150.14.177:60147 TLS: Initial Sequence Completed
+    ```
   1. サーバ証明書を発行する
     - `./build-dh` はちと時間食う。
     - `openvpn --genkey --secret`は` openvpn --genkey --secret ta.key` が正しい。
@@ -115,7 +139,7 @@ VPN を構成する方式は、大きく二つ。
         - UDPポート確認ツールはWireSharkらしい。使う前につながったから未検証。
     - クライアント側で`TCP/UDP: Incoming packet rejected from xxx.xxx.xxx.xxx:1194, expected peer address: xxx.xxx.xxx.xxx:1194 (allow this incoming source address/port by removing --remote or adding --float)  ...` が出る
       - 同じネットワークいるのが原因。サーバとクライアントを別ネットワークにしてから接続すればつながるはず。
-    - 成功した時のメッセージ
+    - 成功した時のメッセージ(クライアント)
       - 初期処理 
       ```
       2015/10/12 0:36:08 OpenVPN 2.3.7 x86_64-w64-mingw32 [SSL (OpenSSL)] [LZO] [PKCS11] [IPv6] built on Jul  9 2015
@@ -208,7 +232,71 @@ VPN を構成する方式は、大きく二つ。
       ```
       2015/10/12 0:36:26 Initialization Sequence Completed
       ```
+    - 成功した時のメッセージ(サーバ)
+      ```
+      Tue Oct 13 22:35:36 2015 210.150.14.177:58485 TLS: Initial packet from [AF_INET]210.150.14.177:58485, sid=06afde28 b97860ca
+      Tue Oct 13 22:35:38 2015 210.150.14.177:58485 VERIFY OK: depth=1, C=JP, ST=Fukuoka, L=Kitakyushu, O=CIR-KIT, OU=Students, CN=CIR-KIT CA, name=EasyRSA, emailAddress=p595201m@mail.kyutech.jp
+      Tue Oct 13 22:35:38 2015 210.150.14.177:58485 VERIFY OK: depth=0, C=JP, ST=Fukuoka, L=Kitakyushu, O=CIR-KIT, OU=Students, CN=client1, name=EasyRSA, emailAddress=p595201m@mail.kyutech.jp
+      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Encrypt: Cipher 'BF-CBC' initialized with 128 bit key
+      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Encrypt: Using 160 bit message hash 'SHA1' for HMAC authentication
+      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Decrypt: Cipher 'BF-CBC' initialized with 128 bit key
+      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Decrypt: Using 160 bit message hash 'SHA1' for HMAC authentication
+      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Control Channel: TLSv1, cipher TLSv1/SSLv3 DHE-RSA-AES256-SHA, 1024 bit RSA
+      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 [client1] Peer Connection Initiated with [AF_INET]210.150.14.177:58485
+      Tue Oct 13 22:35:43 2015 client1/210.150.14.177:58485 MULTI_sva: pool returned IPv4=10.8.0.6, IPv6=(Not enabled)
+      Tue Oct 13 22:35:43 2015 client1/210.150.14.177:58485 MULTI: Learn: 10.8.0.6 -> client1/210.150.14.177:58485
+      Tue Oct 13 22:35:43 2015 client1/210.150.14.177:58485 MULTI: primary virtual IP for client1/210.150.14.177:58485: 10.8.0.6
+      Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 PUSH: Received control message: 'PUSH_REQUEST'
+      Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 send_push_reply(): safe_cap=940
+      Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 SENT CONTROL [client1]: 'PUSH_REPLY,route 192.168.179.0 255.255.255.0,redirect-gateway def1 bypass-dhcp,dhcp-option DNS 192.168.179.1,route 10.8.0.1,topology net30,ping 10,ping-restart 120,ifconfig 10.8.0.6 10.8.0.5' (status=1)
+      ```
+  1. 接続を確認する
+    1. サーバ側
+      - `ifconfig` で次のような構成をとっている。
+        ```
+        eth2      Link encap:イーサネット  ハードウェアアドレス a4:12:42:3b:fa:99  
+          inetアドレス:192.168.179.7  ブロードキャスト:192.168.179.255  マスク:255.255.255.0
+          inet6アドレス: fe80::a612:42ff:fe3b:fa99/64 範囲:リンク
+          UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1500  メトリック:1
+          RXパケット:14604 エラー:0 損失:0 オーバラン:0 フレーム:0
+          TXパケット:14122 エラー:0 損失:0 オーバラン:0 キャリア:0
+          衝突(Collisions):0 TXキュー長:1000 
+          RXバイト:4941716 (4.9 MB)  TXバイト:4016691 (4.0 MB)
 
+        lo        Link encap:ローカルループバック  
+          inetアドレス:127.0.0.1  マスク:255.0.0.0
+          inet6アドレス: ::1/128 範囲:ホスト
+          UP LOOPBACK RUNNING  MTU:65536  メトリック:1
+          RXパケット:5918187 エラー:0 損失:0 オーバラン:0 フレーム:0
+          TXパケット:5918187 エラー:0 損失:0 オーバラン:0 キャリア:0
+          衝突(Collisions):0 TXキュー長:0 
+          RXバイト:4806771628 (4.8 GB)  TXバイト:4806771628 (4.8 GB)
+
+        tun0      Link encap:不明なネット  ハードウェアアドレス 00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00  
+          inetアドレス:10.8.0.1  P-t-P:10.8.0.2  マスク:255.255.255.255
+          UP POINTOPOINT RUNNING NOARP MULTICAST  MTU:1500  メトリック:1
+          RXパケット:0 エラー:0 損失:0 オーバラン:0 フレーム:0
+          TXパケット:1 エラー:0 損失:0 オーバラン:0 キャリア:0
+          衝突(Collisions):0 TXキュー長:100 
+          RXバイト:0 (0.0 B)  TXバイト:84 (84.0 B)
+
+        wlan0     Link encap:イーサネット  ハードウェアアドレス 5c:c5:d4:1c:f5:70  
+          inet6アドレス: fe80::5ec5:d4ff:fe1c:f570/64 範囲:リンク
+          UP BROADCAST PROMISC MULTICAST  MTU:1500  メトリック:1
+          RXパケット:7639696 エラー:0 損失:0 オーバラン:0 フレーム:0
+          TXパケット:8188470 エラー:0 損失:0 オーバラン:0 キャリア:0
+          衝突(Collisions):0 TXキュー長:1000 
+          RXバイト:5784367971 (5.7 GB)  TXバイト:8292467773 (8.2 GB)
+
+        ```
+    1. クライアント側
+      - `ipconfig` で次のような構成を取る
+        - `10.8.0.6` が出てくるはず。
+      - ネットワークの設定で次のような構成を取る
+      - `ping 10.8.0.1` が通る。
+      - `pint 192.168.179.6` が通る。感動！
+        - これを`ROS_MASTER_URI`に登録すればよさげ。
+        
 #### 個人メモ
 - 我が家でのルータ設定
   - http://192.168.11.1/
@@ -228,3 +316,59 @@ VPN を構成する方式は、大きく二つ。
       
 - ATERM (モバイルWifiルータ)
   - こっちでやるとつながったよ。
+
+## 構成1: ブリッジ方式(tap)
+### 現状
+- Ubuntu 側でブリッジ構成を取るとつながらない。ブリッジ構成を取るとインターネットにも繋がらなくなる。
+- Ubuntu 側でブリッジ構成を取らなければ、ツール上ではつながっているよう。ping は通らない。
+- メモ
+  - `ifconfig`
+    ```
+    br0       Link encap:イーサネット  ハードウェアアドレス 1a:40:17:cf:5c:7b  
+          inetアドレス:192.168.179.7  ブロードキャスト:192.168.179.255  マスク:255.255.255.0
+          inet6アドレス: fe80::1840:17ff:fecf:5c7b/64 範囲:リンク
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  メトリック:1
+          RXパケット:43 エラー:0 損失:0 オーバラン:0 フレーム:0
+          TXパケット:60 エラー:0 損失:0 オーバラン:0 キャリア:0
+          衝突(Collisions):0 TXキュー長:0 
+          RXバイト:4996 (4.9 KB)  TXバイト:7153 (7.1 KB)
+
+    eth2      Link encap:イーサネット  ハードウェアアドレス a4:12:42:3b:fa:99  
+          inet6アドレス: fe80::a612:42ff:fe3b:fa99/64 範囲:リンク
+          UP BROADCAST RUNNING PROMISC MULTICAST  MTU:1500  メトリック:1
+          RXパケット:3467 エラー:0 損失:0 オーバラン:0 フレーム:0
+          TXパケット:3402 エラー:0 損失:0 オーバラン:0 キャリア:0
+          衝突(Collisions):0 TXキュー長:1000 
+          RXバイト:1311438 (1.3 MB)  TXバイト:1005234 (1.0 MB)
+
+    lo        Link encap:ローカルループバック  
+          inetアドレス:127.0.0.1  マスク:255.0.0.0
+          inet6アドレス: ::1/128 範囲:ホスト
+          UP LOOPBACK RUNNING  MTU:65536  メトリック:1
+          RXパケット:5908145 エラー:0 損失:0 オーバラン:0 フレーム:0
+          TXパケット:5908145 エラー:0 損失:0 オーバラン:0 キャリア:0
+          衝突(Collisions):0 TXキュー長:0 
+          RXバイト:4805898242 (4.8 GB)  TXバイト:4805898242 (4.8 GB)
+
+    tap0      Link encap:イーサネット  ハードウェアアドレス 1a:40:17:cf:5c:7b  
+          UP BROADCAST PROMISC MULTICAST  MTU:1500  メトリック:1
+          RXパケット:0 エラー:0 損失:0 オーバラン:0 フレーム:0
+          TXパケット:0 エラー:0 損失:0 オーバラン:0 キャリア:0
+          衝突(Collisions):0 TXキュー長:100 
+          RXバイト:0 (0.0 B)  TXバイト:0 (0.0 B)
+
+    wlan0     Link encap:イーサネット  ハードウェアアドレス 5c:c5:d4:1c:f5:70  
+          inet6アドレス: fe80::5ec5:d4ff:fe1c:f570/64 範囲:リンク
+          UP BROADCAST PROMISC MULTICAST  MTU:1500  メトリック:1
+          RXパケット:7639696 エラー:0 損失:0 オーバラン:0 フレーム:0
+          TXパケット:8188470 エラー:0 損失:0 オーバラン:0 キャリア:0
+          衝突(Collisions):0 TXキュー長:1000 
+          RXバイト:5784367971 (5.7 GB)  TXバイト:8292467773 (8.2 GB)
+
+    ```
+  - `brctl show`
+    ```
+    bridge name	bridge id		STP enabled	interfaces
+    br0		8000.1a4017cf5c7b	no		eth2
+    							                tap0
+    ```
