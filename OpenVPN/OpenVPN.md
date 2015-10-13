@@ -124,10 +124,12 @@ VPN を構成する方式は、大きく二つ。
         - 参考：http://stackoverflow.com/questions/24255205/error-loading-extension-section-usr-cert
     - 接続確認
       - まずは同一ネットワーク内で接続確認する。
-      - そこでうまく行くことを確認した後、グローバルIPから接続。
+      - そこでうまく行くことを確認した後、グローバルIPで`ping`確認。
       - グローバルIPアドレスは[ここから取得](http://www.cman.jp/network/support/go_access.cgi)
       - Aterm MR03LN の管理ページからもグローバルIPを確認可能
         ![aterm_global_ip](images/aterm_global_ip.png) 
+      - Aterm MR03LN のグローバルIPから`ping`応答がないとき、管理ページから有効にする。
+        ![aterm_ping_available](images/aterm_ping_available.png) 
 1. クライアント設定
   1. クライアントアプリをインストールする
     - `OpenVPN for Windows`か`vpnux`が便利。
