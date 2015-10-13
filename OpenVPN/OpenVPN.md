@@ -126,6 +126,8 @@ VPN を構成する方式は、大きく二つ。
       - まずは同一ネットワーク内で接続確認する。
       - そこでうまく行くことを確認した後、グローバルIPから接続。
       - グローバルIPアドレスは[ここから取得](http://www.cman.jp/network/support/go_access.cgi)
+      - Aterm MR03LN の管理ページからもグローバルIPを確認可能
+        ![aterm_global_ip](images/aterm_global_ip.png) 
 1. クライアント設定
   1. クライアントアプリをインストールする
     - `OpenVPN for Windows`か`vpnux`が便利。
@@ -249,23 +251,23 @@ VPN を構成する方式は、大きく二つ。
       2015/10/12 0:36:26 Initialization Sequence Completed
       ```
     - 成功した時のメッセージ(サーバ)
-      ```
-      Tue Oct 13 22:35:36 2015 210.150.14.177:58485 TLS: Initial packet from [AF_INET]210.150.14.177:58485, sid=06afde28 b97860ca
-      Tue Oct 13 22:35:38 2015 210.150.14.177:58485 VERIFY OK: depth=1, C=JP, ST=Fukuoka, L=Kitakyushu, O=CIR-KIT, OU=Students, CN=CIR-KIT CA, name=EasyRSA, emailAddress=p595201m@mail.kyutech.jp
-      Tue Oct 13 22:35:38 2015 210.150.14.177:58485 VERIFY OK: depth=0, C=JP, ST=Fukuoka, L=Kitakyushu, O=CIR-KIT, OU=Students, CN=client1, name=EasyRSA, emailAddress=p595201m@mail.kyutech.jp
-      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Encrypt: Cipher 'BF-CBC' initialized with 128 bit key
-      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Encrypt: Using 160 bit message hash 'SHA1' for HMAC authentication
-      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Decrypt: Cipher 'BF-CBC' initialized with 128 bit key
-      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Decrypt: Using 160 bit message hash 'SHA1' for HMAC authentication
-      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Control Channel: TLSv1, cipher TLSv1/SSLv3 DHE-RSA-AES256-SHA, 1024 bit RSA
-      Tue Oct 13 22:35:43 2015 210.150.14.177:58485 [client1] Peer Connection Initiated with [AF_INET]210.150.14.177:58485
-      Tue Oct 13 22:35:43 2015 client1/210.150.14.177:58485 MULTI_sva: pool returned IPv4=10.8.0.6, IPv6=(Not enabled)
-      Tue Oct 13 22:35:43 2015 client1/210.150.14.177:58485 MULTI: Learn: 10.8.0.6 -> client1/210.150.14.177:58485
-      Tue Oct 13 22:35:43 2015 client1/210.150.14.177:58485 MULTI: primary virtual IP for client1/210.150.14.177:58485: 10.8.0.6
-      Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 PUSH: Received control message: 'PUSH_REQUEST'
-      Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 send_push_reply(): safe_cap=940
-      Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 SENT CONTROL [client1]: 'PUSH_REPLY,route 192.168.179.0 255.255.255.0,redirect-gateway def1 bypass-dhcp,dhcp-option DNS 192.168.179.1,route 10.8.0.1,topology net30,ping 10,ping-restart 120,ifconfig 10.8.0.6 10.8.0.5' (status=1)
-      ```
+    ```
+    Tue Oct 13 22:35:36 2015 210.150.14.177:58485 TLS: Initial packet from [AF_INET]210.150.14.177:58485, sid=06afde28 b97860ca
+    Tue Oct 13 22:35:38 2015 210.150.14.177:58485 VERIFY OK: depth=1, C=JP, ST=Fukuoka, L=Kitakyushu, O=CIR-KIT, OU=Students, CN=CIR-KIT CA, name=EasyRSA, emailAddress=p595201m@mail.kyutech.jp
+    Tue Oct 13 22:35:38 2015 210.150.14.177:58485 VERIFY OK: depth=0, C=JP, ST=Fukuoka, L=Kitakyushu, O=CIR-KIT, OU=Students, CN=client1, name=EasyRSA, emailAddress=p595201m@mail.kyutech.jp
+    Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Encrypt: Cipher 'BF-CBC' initialized with 128 bit key
+    Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Encrypt: Using 160 bit message hash 'SHA1' for HMAC authentication
+    Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Decrypt: Cipher 'BF-CBC' initialized with 128 bit key
+    Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Data Channel Decrypt: Using 160 bit message hash 'SHA1' for HMAC authentication
+    Tue Oct 13 22:35:43 2015 210.150.14.177:58485 Control Channel: TLSv1, cipher TLSv1/SSLv3 DHE-RSA-AES256-SHA, 1024 bit RSA
+    Tue Oct 13 22:35:43 2015 210.150.14.177:58485 [client1] Peer Connection Initiated with [AF_INET]210.150.14.177:58485
+    Tue Oct 13 22:35:43 2015 client1/210.150.14.177:58485 MULTI_sva: pool returned IPv4=10.8.0.6, IPv6=(Not enabled)
+    Tue Oct 13 22:35:43 2015 client1/210.150.14.177:58485 MULTI: Learn: 10.8.0.6 -> client1/210.150.14.177:58485
+    Tue Oct 13 22:35:43 2015 client1/210.150.14.177:58485 MULTI: primary virtual IP for client1/210.150.14.177:58485: 10.8.0.6
+    Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 PUSH: Received control message: 'PUSH_REQUEST'
+    Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 send_push_reply(): safe_cap=940
+    Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 SENT CONTROL [client1]: 'PUSH_REPLY,route 192.168.179.0 255.255.255.0,redirect-gateway def1 bypass-dhcp,dhcp-option DNS 192.168.179.1,route 10.8.0.1,topology net30,ping 10,ping-restart 120,ifconfig 10.8.0.6 10.8.0.5' (status=1)
+    ```
       
   1. 接続を確認する
     1. サーバ側
