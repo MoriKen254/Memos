@@ -26,6 +26,9 @@ VPN を構成する方式は、大きく二つ。
 
 ### 参考リンク
   - [Gentoo Linuxな生活​/OpenVPNで悩む](http://femt.ddo.jp/modules/xpwiki/?Gentoo%20Linux%E3%81%AA%E7%94%9F%E6%B4%BB%2FOpenVPN%E3%81%A7%E6%82%A9%E3%82%80)
+  - [Setup OpenVPN server TAP behind an ASA](http://www.supinfo.com/articles/single/183-setup-openvpn-server-tap-behind-an-asa) :`tap`と`br0`関係が簡潔に書かれている。ただ、簡潔すぎる。
+  - [OpenVPN 2.0 Ethernet Bridging 日本語訳](http://freescitech.net/2/ovpn2_ether_ja.html):冒頭の説明が分かりやすい。でも、図がない。
+　- [OpenVPNで拠点間L2接続](http://qiita.com/ma2shita/items/3ccb5336470676b8558e):`tap`、`br0`、`eth`と、LAN、WANの関係が明確で非常に分かりやすい。
 
 ## 共通手順
 1. サーバ設定
