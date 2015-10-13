@@ -42,15 +42,20 @@ VPN を構成する方式は、大きく二つ。
 
 ### 手順
 
-#### 基本的に従ったサイト
-- http://felis-silvestris-catus.hatenablog.com/entry/2015/05/27/222434
-
+#### 基本的に従った情報
+- [Ubuntu 14.04 で OpenVPN ](http://felis-silvestris-catus.hatenablog.com/entry/2015/05/27/222434)
+- OpenVPNの設定
+  - [その1：認証用ファイルの生成](https://fuketch.wordpress.com/2013/02/19/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE1%EF%BC%9A%E8%AA%8D%E8%A8%BC%E7%94%A8%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E7%94%9F%E6%88%90%EF%BC%89/)
+  - [その2：ブリッジモードサーバー設定](https://fuketch.wordpress.com/2013/02/26/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE2%E3%81%AE1%EF%BC%9A%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8%E3%83%A2%E3%83%BC%E3%83%89%E3%81%A7%E3%81%AE%E6%8E%A5%E7%B6%9A1%EF%BC%89/)
+  - [その3：ブリッジモードクライアント設定](https://fuketch.wordpress.com/2013/02/26/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE3%EF%BC%9A%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8%E3%83%A2%E3%83%BC%E3%83%89%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E8%A8%AD/)
+  - [その4：トンネルモードサーバー設定](https://fuketch.wordpress.com/2013/09/10/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE4%EF%BC%9A%E3%83%88%E3%83%B3%E3%83%8D%E3%83%AB%E3%83%A2%E3%83%BC%E3%83%89%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E8%A8%AD%E5%AE%9A%EF%BC%89/)
+  - [その5：トンネルモードクライアント設定](https://fuketch.wordpress.com/2013/09/10/openvpn%E3%81%AE%E8%A8%AD%E5%AE%9A%EF%BC%88%E3%81%9D%E3%81%AE5%EF%BC%9A%E3%83%88%E3%83%B3%E3%83%8D%E3%83%AB%E3%83%A2%E3%83%BC%E3%83%89%E3%82%AF%E3%83%A9%E3%82%A4%E3%82%A2%E3%83%B3%E3%83%88%E8%A8%AD/)
 #### つまづいた箇所の補足メモ
 1. サーバ設定
   1. rootでログイン
     - `su -i` で入った後迷子になる。一回`cd /`でてっぺんに行くといい。
   1. OpeVPNを設定する
-    - 実行後、ファイアウォール設定ツールで次のような画面が表示される
+    - ファイアウォール設定ツールで次のような画面が表示される
       - `ルール`でUDPを開放している様子が表示されており、`リスニングレポート`でopenvpnが起動中であることを示す。
     - `/etc/openvpn/openvpn.log`で以下のように出力されればよい。
     ```
@@ -75,6 +80,18 @@ VPN を構成する方式は、大きく二つ。
       Tue Oct 13 22:14:42 2015 210.150.14.177:60147 TLS: Initial Sequence Completed
     ```
   1. サーバ証明書を発行する
+    - `easy-rsa` のファイルは以下の様に取得、展開するといい。
+    ```
+      # wget http://build.openvpn.net/downloads/releases/easy-rsa-2.2.0_master.tar.gz
+      # tar zxvf ./easy-rsa-2.2.0_master.tar.gz
+
+      解凍したeasy-rsaの証明書／鍵作成用ディレクトリをopenvpnのディレクトリ配下へコピー
+      # cp -r ./easy-rsa-2.2.0_master/easy-rsa/2.0/ /etc/openvpn/easy-rsa
+      
+      各処理スクリプトに実行権を付与。
+      # cd /etc/openvpn/easy-rsa/
+      # chmod +x *
+    ```
     - `./build-dh` はちと時間食う。
     - `openvpn --genkey --secret`は` openvpn --genkey --secret ta.key` が正しい。
     - `cp ca.crt server.crt server.keydh1024.pem ta.key /etc/openvpn`は`cp ca.crt server.crt server.key dh2048.pem ta.key /etc/openvpn/` が正しい。
@@ -86,8 +103,9 @@ VPN を構成する方式は、大きく二つ。
     - その他のオプション 
       - クライアントがiPhoneの場合は`;comp-lzo`を無効にするらしい。PCなら有効にした方が通信は容量が下がるはず。
   1. ファイアウォールを設定する
-    - Ubuntu ファイアウォール設定ツール
-      - http://sicklylife.at-ninja.jp/memo/ubuntu1404/gufw.html
+    - ファイアウォール設定ツール [gufw](http://sicklylife.at-ninja.jp/memo/ubuntu1404/gufw.html) をインストール
+      - `sudo apt-get install gufw`
+      - 
       - UDPでポート1194をオープンすること。
   1. ルータを設定する
     - ルータのグローバルIPにポート1194でアクセス要求があった場合に、どのPCにフォワードするかを設定する。
