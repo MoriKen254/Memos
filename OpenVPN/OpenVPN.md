@@ -55,6 +55,7 @@ VPN を構成する方式は、大きく二つ。
   1. rootでログイン
     - `su -i` で入った後迷子になる。一回`cd /`でてっぺんに行くといい。
   1. OpeVPNを設定する
+    - `server.conf` の実績ファイルは[これ](https://github.com/mum254/Memos/blob/master/OpenVPN/easy-rsa_back_TUN_151013_success/server.conf) 。TLSとかcipherの入力を省いて簡単構成にしている。
     - ファイアウォール設定ツールで次のような画面が表示される
       - `ルール`でUDPを開放している様子が表示されており、`リスニングレポート`でopenvpnが起動中であることを示す。
     - `/etc/openvpn/openvpn.log`で以下のように出力されればよい。
@@ -110,8 +111,8 @@ VPN を構成する方式は、大きく二つ。
   1. ルータを設定する
     - ルータのグローバルIPにポート1194でアクセス要求があった場合に、どのPCにフォワードするかを設定する。
     - 自分の環境で使用しているルータにアクセスして、ポートフォワードの設定すること。
-    - [NEC Aterm MR03LN の場合](http://www.akakagemaru.info/port/mr03ln-portfw.html)
-    - [Buffalo WHR-300HP2 の場合](http://www.akakagemaru.info/port/meruko/whr-300hp2-portfw.html)
+      - [NEC Aterm MR03LN の場合](http://www.akakagemaru.info/port/mr03ln-portfw.html)
+      - [Buffalo WHR-300HP2 の場合](http://www.akakagemaru.info/port/meruko/whr-300hp2-portfw.html)
   1. クライアント証明書を発行する
     - `# ./pkitool client1`で`failed to update database TXT_DB error number 2` というエラーが出る
       - `KEY_CN=someuniqueclientcn ./pkitool client` で上記エラーを回避。
@@ -127,16 +128,19 @@ VPN を構成する方式は、大きく二つ。
       - グローバルIPアドレスは[ここから取得](http://www.cman.jp/network/support/go_access.cgi)
 1. クライアント設定
   1. クライアントアプリをインストールする
-    - 特になし。
+    - `OpenVPN for Windows`か`vpnux`が便利。
   1. クライアントアプリを設定する
-    - [このサイト](http://www.cman.jp/network/support/go_access.cgi)でサーバ側のグローバルIPを確認する。
-      - そしてクライアントアプリにこんな風に入力する。
-      ![グローバルIPの設定](images/vpnux_globalip.png)
-    - もしうまく行かない時、原因切り分けのため最初に同一LAN内で確認したほうがいい。
-      - こんな構成を想定。
-      ![同一LAN内VPN構成](images/vpn_net_structure_local.png)
-      - この場合はこんな風に入力。
-      ![グローバルIPの設定](images/vpnux_localip.png)
+    1. OpenVPN
+      1. `client.conf` を設定する。実績ファイルは[これ](https://github.com/mum254/Memos/blob/master/OpenVPN/easy-rsa_back_TUN_151013_success/client_tun.ovpn)。
+    1. vpnux
+      - [このサイト](http://www.cman.jp/network/support/go_access.cgi)でサーバ側のグローバルIPを確認する。
+        - そしてクライアントアプリにこんな風に入力する。
+        ![グローバルIPの設定](images/vpnux_globalip.png)
+      - もしうまく行かない時、原因切り分けのため最初に同一LAN内で確認したほうがいい。
+        - こんな構成を想定。
+        ![同一LAN内VPN構成](images/vpn_net_structure_local.png)
+        - この場合はこんな風に入力。
+        ![グローバルIPの設定](images/vpnux_localip.png)
   1. ファイアウォールを設定する
     - UDPでポート1194を開放する。OSにあった設定をすること。
   1. 接続する
@@ -144,10 +148,8 @@ VPN を構成する方式は、大きく二つ。
       - ここを見ながら原因追求する
         - https://www.gsais.kyoto-u.ac.jp/staff/liang/oss/ovpn2_howto_ja.html#start
       - ポートが開放されているか確認する
-        - TCPポート確認ツールはwebからhttpでアクセスして確認できる。
-          - http://www.cman.jp/network/support/port.html
-        - ここを見ながら色々なTCPポートを開放して確認してみることができる。
-          - http://www.akakagemaru.info/port/faq-disableport.html
+        - TCPポート確認ツールは[webからhttpでアクセスして確認](http://www.cman.jp/network/support/port.html)できる。
+        - [ここ](http://www.akakagemaru.info/port/faq-disableport.html)を見ながら色々なTCPポートを開放して確認してみることができる。
           - ブラウザで`サーバIP:ポート番号`と入力。例: `192.168.1.3:8080`等。
           - Windowsアプリの`ANHTTPD`超便利。
         - UDPポート確認ツールはWireSharkらしい。使う前につながったから未検証。
@@ -264,6 +266,7 @@ VPN を構成する方式は、大きく二つ。
       Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 send_push_reply(): safe_cap=940
       Tue Oct 13 22:35:45 2015 client1/210.150.14.177:58485 SENT CONTROL [client1]: 'PUSH_REPLY,route 192.168.179.0 255.255.255.0,redirect-gateway def1 bypass-dhcp,dhcp-option DNS 192.168.179.1,route 10.8.0.1,topology net30,ping 10,ping-restart 120,ifconfig 10.8.0.6 10.8.0.5' (status=1)
       ```
+      
   1. 接続を確認する
     1. サーバ側
       - `ifconfig` で次のような構成をとっている。
