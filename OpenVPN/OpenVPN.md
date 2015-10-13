@@ -1,4 +1,6 @@
 #UbuntuをVPNサーバ、WindowsをVPNクライアントでOpenVPNしてみる
+## はじめに
+きっかけは、[ROSでVPN](http://answers.ros.org/question/11045/how-to-set-up-vpn-between-ros-machines/)接続をしたいと思ったところからスタートして、相当ハマった。とりあえず備忘録。
 
 ## 概要
 VPN を構成する方式は、大きく二つ。
@@ -181,6 +183,7 @@ VPN を構成する方式は、大きく二つ。
   1. ファイアウォールを設定する
     - UDPでポート1194を開放する。OSにあった設定をすること。
   1. 接続する
+    - トラブルシュートは[OpenVPN 2.0 HOWTO](http://freescitech.net/2/ovpn2_howto_ja.html)が充実している。 
     - クライアント側で`TLS Error: TLS key negotiation failed to occur within 60 seconds (check your network connectivity)`が出る
       - ここを見ながら原因追求する
         - https://www.gsais.kyoto-u.ac.jp/staff/liang/oss/ovpn2_howto_ja.html#start
@@ -190,11 +193,15 @@ VPN を構成する方式は、大きく二つ。
           - ブラウザで`サーバIP:ポート番号`と入力。例: `192.168.1.3:8080`等。
           - Windowsアプリの`ANHTTPD`超便利。
         - UDPポート確認ツールはWireSharkらしい。使う前につながったから未検証。
+        - TCPにもUDPにも使える[PortQry](http://www.infraexpert.com/study/security12.html)というツールがある。MS公式でコマンドラインとGUIが両方ある。
     - クライアント側で`TCP/UDP: Incoming packet rejected from xxx.xxx.xxx.xxx:1194, expected peer address: xxx.xxx.xxx.xxx:1194 (allow this incoming source address/port by removing --remote or adding --float)  ...` が出る
       - 同じネットワークいるのが原因。サーバとクライアントを別ネットワークにしてから接続すればつながるはず。
     - クライアント側で`VERIFY ERROR` が出る
       - 認証鍵の作成ミスの可能性あり。鍵を作成し直す。
       - 参考：http://nlogn.ath.cx/archives/001023.html
+    - `WARNING: No server certificate verification method has been enabled.`が出る。
+      - `config.opvn` で`ca ca.crt`, `cert client01.crt`, `key client01.key`を絶対パス指定すると取れるっぽい。
+      - 出典: http://dminor11th.blogspot.jp/2011/08/tunnelblick-warning.html
     - 成功した時のメッセージ(クライアント)
       - 初期処理 
       ```
@@ -448,3 +455,7 @@ VPN を構成する方式は、大きく二つ。
   br0           8000.1a4017cf5c7b	  no        eth2
                                                 tap0
   ```
+
+### 参考になりそうな情報
+- [SoftEther VPN 1.0 RC2でtap](http://www.pc-links.com/blog/softether/tap/): `ifconfig`の出力が参考になる。
+- 
