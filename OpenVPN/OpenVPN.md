@@ -35,6 +35,12 @@ VPN を構成する方式は、大きく二つ。
   1. 接続する
   1. 接続を確認する
 
+### ルータを設定する理由
+- デフォルトだと全ポートが接続不可となっているので、開放する必要がある。
+- かつ、ポートフォワードをしないと、ドメイン内のどれがVPNサーバか判断できないので。
+  ![port_forward_explanation](images/port_forward_explanation.jpg)
+  - 出典：[OpenVPNで構築する超簡単VPN入門](http://www.amazon.co.jp/OpenVPN%E3%81%A7%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E8%B6%85%E7%B0%A1%E5%8D%98VPN%E5%85%A5%E9%96%80%E2%80%95Windows-Mac-OS-X-Linux%E5%AF%BE%E5%BF%9C/dp/4899771673)
+
 ## 構成1: ルーティング方式(tun)
 ### 実現したい構成
 - 構成図
