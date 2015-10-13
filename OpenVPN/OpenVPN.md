@@ -28,7 +28,8 @@ VPN を構成する方式は、大きく二つ。
   - [Gentoo Linuxな生活​/OpenVPNで悩む](http://femt.ddo.jp/modules/xpwiki/?Gentoo%20Linux%E3%81%AA%E7%94%9F%E6%B4%BB%2FOpenVPN%E3%81%A7%E6%82%A9%E3%82%80)
   - [Setup OpenVPN server TAP behind an ASA](http://www.supinfo.com/articles/single/183-setup-openvpn-server-tap-behind-an-asa) :`tap`と`br0`関係が簡潔に書かれている。ただ、簡潔すぎる。
   - [OpenVPN 2.0 Ethernet Bridging 日本語訳](http://freescitech.net/2/ovpn2_ether_ja.html):冒頭の説明が分かりやすい。でも、図がない。
-　- [OpenVPNで拠点間L2接続](http://qiita.com/ma2shita/items/3ccb5336470676b8558e):`tap`、`br0`、`eth`と、LAN、WANの関係が明確で非常に分かりやすい。
+  - [OpenVPNで拠点間L2接続](http://qiita.com/ma2shita/items/3ccb5336470676b8558e):`tap`、`br0`、`eth`と、LAN、WANの関係が明確で非常に分かりやすい。
+　  ![openvpn_bridge_good_chart](images/openvpn_bridge_good_chart.png) 
 
 ## 共通手順
 1. サーバ設定
@@ -378,8 +379,12 @@ VPN を構成する方式は、大きく二つ。
   - こっちでやるとつながったよ。
 
 ## 構成1: ブリッジ方式(tap)
-### 手順
+### 構成図例
+![openvpn_bridge_good_chart](images/openvpn_bridge_good_chart.png)
+- 出典: [OpenVPNで拠点間L2接続](http://qiita.com/ma2shita/items/3ccb5336470676b8558e)
 
+
+### 手順
 #### 基本的に従った情報
 - [OpenVPNで構築する超簡単VPN入門](http://www.amazon.co.jp/OpenVPN%E3%81%A7%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E8%B6%85%E7%B0%A1%E5%8D%98VPN%E5%85%A5%E9%96%80%E2%80%95Windows-Mac-OS-X-Linux%E5%AF%BE%E5%BF%9C/dp/4899771673)
 - OpenVPNの設定
