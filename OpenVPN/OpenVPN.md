@@ -2,17 +2,27 @@
 
 ## 概要
 VPN を構成する方式は、大きく二つ。
-### ルーティング方式(tun)
+### ルーティング方式(tunデバイスを利用)
+- 構成図
+
+  ![routing_explanation](images/routing_explanation.jpg) 
+  - 出典：[OpenVPNで構築する超簡単VPN入門](http://www.amazon.co.jp/OpenVPN%E3%81%A7%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E8%B6%85%E7%B0%A1%E5%8D%98VPN%E5%85%A5%E9%96%80%E2%80%95Windows-Mac-OS-X-Linux%E5%AF%BE%E5%BF%9C/dp/4899771673)
 - 特長
   - 1(クライアント)対1(サーバ)でよければ設定は簡単。
-  - 1対多(サーバ+同一ネットワーク内端末)だと、ちょっと大変。
+  - 1対多(サーバ+同一ネットワーク内端末)だと、ちょっと大変。上図だと、ホストAとホストBは直接接続できない。サーバでルーティング設定が必要。
   - クライアントには、サーバ側ネットワークのローカルIP(例:192.168.11.x)と別ドメインのIP(10.0.8.x)が振られる。
+  - ネットワーク層トンネリングをするので、TCP/IPしか使えない。
 
-### ブリッジ方式(tap)
+### ブリッジ方式(tapデバイスを利用)
+- 構成図
+
+  ![bridge_explanation](images/bridge_explanation.jpg) 
+  - 出典：[OpenVPNで構築する超簡単VPN入門](http://www.amazon.co.jp/OpenVPN%E3%81%A7%E6%A7%8B%E7%AF%89%E3%81%99%E3%82%8B%E8%B6%85%E7%B0%A1%E5%8D%98VPN%E5%85%A5%E9%96%80%E2%80%95Windows-Mac-OS-X-Linux%E5%AF%BE%E5%BF%9C/dp/4899771673)
 - 特長
-  - 1対多に対応しているけど、設定がちょっと面倒。
-  - サーバ側でブリッジ接続の設定が必須。
+  - 1対多に対応している。ホストAとホストBが直接接続できる。
+  - サーバ側でブリッジ接続の設定が必須。こいつがょっと面倒
   - クライアントには、サーバ側ネットワークのローカルIP(例:192.168.11.x)と同一ドメインのIPが振られる。
+  - データリンク層でトンネリングするので、NetBEUIも使えるらしい。
 
 ### 参考リンク
   - [Gentoo Linuxな生活​/OpenVPNで悩む](http://femt.ddo.jp/modules/xpwiki/?Gentoo%20Linux%E3%81%AA%E7%94%9F%E6%B4%BB%2FOpenVPN%E3%81%A7%E6%82%A9%E3%82%80)
@@ -45,9 +55,6 @@ VPN を構成する方式は、大きく二つ。
 ### 実現したい構成
 - 構成図
 ![実現したい構成](images/vpn_net_structure_global.png)
-- NAT(ルーティング方式)、tunで構成。
-  - たまたま見たサンプルがこうだったからやってみた。
-  - ROSの場合はブリッジ方式で、tapで構成すべき。後述する。
 
 ### 手順
 
@@ -420,8 +427,8 @@ VPN を構成する方式は、大きく二つ。
 
     ```
   - `brctl show`
-    ```
-    bridge name	bridge id		STP enabled	interfaces
-    br0		8000.1a4017cf5c7b	no		eth2
-    							                tap0
-    ```
+  ```
+  bridge name	bridge id         STP enabled	interfaces
+  br0           8000.1a4017cf5c7b	  no        eth2
+                                                tap0
+  ```
