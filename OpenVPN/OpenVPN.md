@@ -368,7 +368,8 @@ VPN を構成する方式は、大きく二つ。
         ![client_route_print](images/client_route_print.png)
       - [rosserial_windows](http://wiki.ros.org/rosserial_windows)で確認する
         - [チュートリアル](http://wiki.ros.org/rosserial_windows/Tutorials/Hello%20World)
-      
+        - サーバ側で `[ INFO] [1445066072.235308919]: Attached client is using protocol VER2 (hydro)`が出ていればOK．
+        - 上記メッセージが出るのに、クライアントでsubscribeできない。
 #### 個人メモ
 - 我が家でのルータ設定
   - http://192.168.11.1/
