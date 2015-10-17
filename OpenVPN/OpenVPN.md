@@ -354,6 +354,7 @@ VPN を構成する方式は、大きく二つ。
           RXバイト:5784367971 (5.7 GB)  TXバイト:8292467773 (8.2 GB)
 
         ```
+      - `ping` をクライアント側に送る。うまく行かないなら、クライアント側のファイアウォールを完全に停止させる。
     1. クライアント側(Windows7)
       - `ipconfig` で次のような構成を取る
         - `10.8.0.6` が出てくるはず。
@@ -365,6 +366,8 @@ VPN を構成する方式は、大きく二つ。
         - これを`ROS_MASTER_URI`に登録すればよさげ。
       - `route print` で次のような表示となる。
         ![client_route_print](images/client_route_print.png)
+      - [rosserial_windows](http://wiki.ros.org/rosserial_windows)で確認する
+        - [チュートリアル](http://wiki.ros.org/rosserial_windows/Tutorials/Hello%20World)
       
 #### 個人メモ
 - 我が家でのルータ設定
