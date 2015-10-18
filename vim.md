@@ -57,7 +57,8 @@
 - seiya.vim:http://h-miyako.hatenablog.com/entry/2014/12/25/004638
   - vim透過。seiya.vimを~/.vim/plugin にコピー。vimからSeiyaEnable。 
 - vimgutter: http://kazuph.hateblo.jp/entry/2013/04/17/145339 
-  
+- vim-indent-guide: http://www.absolute-keitarou.net/blog/?p=1127
+  - インデントの範囲をビジュアライズする。
 ##リモート通信時のログイン情報入力省略
 - ~/.netrc にユーザ名/パスワードを書く
 ```bash
