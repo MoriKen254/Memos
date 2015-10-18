@@ -28,6 +28,7 @@
 
 ##拡張子毎の強調表示設定を追加したい
 - `/usr/share/vim/vim74/filetype.vim`を編集する: http://www.mazn.net/blog/2009/08/03/230.html
+
 ##プラグイン使い方
 - neobundle
   - http://qiita.com/kazu0620/items/819679ef006d973c6c22
@@ -59,6 +60,10 @@
 - vimgutter: http://kazuph.hateblo.jp/entry/2013/04/17/145339 
 - vim-indent-guide: http://www.absolute-keitarou.net/blog/?p=1127
   - インデントの範囲をビジュアライズする。
+- vim-easymotion: http://haya14busa.com/mastering-vim-easymotion/
+  - 行きたい画面内の任意の文字に簡単にジャンプ
+  - 矯正トレーニング: http://at-grandpa.hatenablog.jp/entry/2015/02/06/093705
+  
 ##リモート通信時のログイン情報入力省略
 - ~/.netrc にユーザ名/パスワードを書く
 ```bash
