@@ -469,3 +469,10 @@ VPN を構成する方式は、大きく二つ。
 ### 参考になりそうな情報
 - [SoftEther VPN 1.0 RC2でtap](http://www.pc-links.com/blog/softether/tap/): `ifconfig`の出力が参考になる。
 - 
+
+# ROSでVPN
+- http://answers.ros.org/question/11045/how-to-set-up-vpn-between-ros-machines/
+- http://library.isr.ist.utl.pt/docs/roswiki/Robots(2f)TurtleBot(2f)Network(20)Setup.html
+- https://bitbucket.org/osrf/cloudsim/issues/15/various-problems-on-simulator_prerelease
+- http://ros-users.122217.n3.nabble.com/Best-way-to-view-RViz-remotely-td1853585.html
+- https://merlin.fit.vutbr.cz/wiki/index.php/Robodev1
