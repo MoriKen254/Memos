@@ -2,7 +2,7 @@
 予め必要なファイルは認証局`easy-rsa`等で作っておく。
 ## Server
 1. サーバ用証明書、鍵、暗号化ハッシュをコピーする
-  - `ca.crt`, `server.key`, `server.key`, `dh1024.pem`
+  - `ca.crt`, `server.key`, `server.crt`, `dh1024.pem`
 1. 設定ファイルを`/etc/openvpn/`にコピーする。かならずこの場所で、かならず拡張は`*.conf`。
   - `server.conf`
 1. サーバ側のローカルネットワークドメインを確認し、`server.conf`の該当箇所を編集する
