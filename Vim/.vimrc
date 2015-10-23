@@ -1,4 +1,3 @@
-"****************************************************************************************************
 "--------1---------2---------3----------4---------5---------6---------7---------8---------9---------0
 "****************************************************************************************************
 "" Neobundle インストール設定
@@ -39,6 +38,9 @@ NeoBundleLazy 'Shougo/vimshell', {
 NeoBundle 'osyo-manga/vim-reunions'
 NeoBundle 'osyo-manga/vim-marching'
 NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'nathanaelkane/vim-indent-guides'                 " インデントハイライトプラグイン
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'tpope/vim-fugitive.git'
 call neobundle#end()
 " ファイルタイプ別のプラグイン/インデントを有効にする
 filetype plugin indent on
@@ -110,6 +112,51 @@ nmap <silent> vimf :<C-u>VimFilerBufferDir -split -simple -winwidth=35 -no-quit 
 " }}}
 
 let g:seiya_auto_enable=1
+
+""" vim-indent-guides {{{
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_start_level=2
+let g:indent_guides_auto_colors=0
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=235
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=239
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=25
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=22
+let g:indent_guides_color_change_percent = 30
+let g:indent_guides_guide_size = 1
+
+"let g:indent_guides_auto_colors=0
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
+"let g:indent_guides_enable_on_vim_startup=1
+"let g:indent_guides_guide_size=1
+" }}}
+
+""" vim-easymotion {{{
+" easy-motionのトレーニング
+function! StartEMTraining ()
+  noremap h <Nop>
+  noremap j <Nop>
+  noremap k <Nop>
+  noremap l <Nop>
+endfunction
+
+" easy-motionのトレーニング解除
+" ＿人人人人人人人＿
+" ＞　非推奨！！　＜
+" ￣Y^Y^Y^Y^Y^Y￣
+function! StopEMTraining ()
+  nnoremap h <Left>
+  nnoremap j gj
+  nnoremap k gk
+  nnoremap l <Right>
+endfunction
+" }}}
+
+command! StartEMTraining call StartEMTraining()
+command! StopEMTraining call StopEMTraining()
+
+" デフォルトはトレーニングモード"
+call StartEMTraining()
 
 "****************************************************************************************************
 "--------1---------2---------3----------4---------5---------6---------7---------8---------9---------0
@@ -193,6 +240,9 @@ highlight cursorline term=none cterm=none ctermfg=none ctermbg=black
 """}}}
 
 """ キーバインド設定 {{{
+"<Leader>をスペースに設定
+let mapleader = "\<Space>"
+
 """" normal mode ****
 """" ノーマルモードでのカーソル移動 {{{{
 nnoremap <S-h> ^
@@ -280,3 +330,4 @@ let g:Tex_ViewRule_pdf = 'evince'
 "let g:Tex_ViewRule_pdf = 'firefox -new-window'
 "let g:Tex_ViewRule_pdf = 'chromium --new-window'
 """ }}}
+
