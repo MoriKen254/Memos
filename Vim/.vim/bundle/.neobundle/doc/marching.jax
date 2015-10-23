@@ -1,0 +1,300 @@
+*marching.txt* *marching*	C++ のコード補完を非同期で行います
+
+
+
+==============================================================================
+概要						*marching-introduction*
+
+*marching.vim* は Clang を使用した C++ のコード補完を非同期で行うためのプラグインです。
+
+- Requires
+    Executable
+      Clang        - http://clang.llvm.org/
+
+    Plugin
+      vimproc.vim  - https://github.com/Shougo/vimproc.vim
+
+
+==============================================================================
+使い方						*marching-usage*
+
+<C-x><C-o> でコード補完を行います。
+NOTE: 手動で補完する必要があります。自動補完を行う場合は |neocomplete.vim| を利
+用して下さい。
+
+補完処理は非同期で行われ、補完処理が完了したら |CursorHoldI| のタイミングで自動
+的にウィンドウが開かれます。
+更新時間は 'updatetime' で設定を行うことができます。
+このオプションの値が低いほうが早く補完ウィンドウが表示されます。
+また、補完ウィンドウが表示されている場合は更新が処理が行われません。
+補完処理中にはキー入力することもできます。
+
+Example: >
+	" clang コマンドの設定
+	let g:marching_clang_command = "C:/clang.exe"
+
+	" オプションを追加する場合
+	" filetype をキーに持つ辞書に設定する
+	let g:marching#clang_command#options = {
+	\	"cpp" : "-std=gnu++1y"
+	\}
+
+	let g:marching_clang_command_option="-std=c++1y"
+
+	" インクルードディレクトリのパスを設定
+	let g:marching_include_paths = [
+	\	"C:/MinGW/lib/gcc/mingw32/4.6.2/include/c++",
+	\	"C:/cpp/boost"
+	\]
+
+	" neocomplete.vim と併用して使用する場合
+	let g:marching_enable_neocomplete = 1
+
+	if !exists('g:neocomplete#force_omni_input_patterns')
+	  let g:neocomplete#force_omni_input_patterns = {}
+	endif
+
+	let g:neocomplete#force_omni_input_patterns.cpp =
+		\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+	
+	" 処理のタイミングを制御する
+	set updatetime=200
+
+	" オムニ補完時に補完ワードを挿入したくない場合
+	imap <buffer> <C-x><C-o> <Plug>(marching_start_omni_complete)
+<
+
+また、一部の環境ではインクルードディレクトリパスを設定しなければ標準のヘッダー
+ファイルを正しく認識しない場合があります。
+その場合は |g:marching_include_paths| で必要なインクルードディレクトリパスの設
+定を行って下さい。
+
+
+==============================================================================
+キャッシング					*marching-caching*
+
+|marching.vim| では補完時の変数名などをキーとして結果を保存しておき、2回目の補
+完時にその結果を使用します。
+この時のデータはバッファごとに保持されます。
+同じバッファ内であればスコープが違っていてもキーが同じであれば同じデータが使
+用されるので注意して下さい。
+
+Example: >
+	void
+	func1(){
+		Hoge x;
+		x.
+	}
+
+	void
+	func2(){
+		Foo x;
+		x.	// func1() の x. の補完データが使用される可能性がある
+	}
+<
+
+このデータは意図的に削除しない限り、再度取得は行われません。
+補完時に補完データを再取得して補完したい場合は、
+|<Plug>(marching_force_start_omni_complete)| を使用して下さい。
+また、|:MarchingBufferClearCache| でバッファ内の補完データをすべて削除する事ができま
+す。
+
+
+==============================================================================
+インターフェース				*marching-interface*
+
+------------------------------------------------------------------------------
+コマンド					*marching-commands*
+
+:MarchingBufferClearCache			*:MarchingBufferClearCache*
+	バッファのキャッシュをクリアする。
+
+:MarchingDebugLog				*:MarchingDebugLog*
+	デバッグログを出力する。
+	ここで出力されるログは |g:marching_debug| に 1、もしくは
+	|:MarchingEnableDebug| 行った場合に記録されます。
+
+:MarchingEnableDebug				*:MarchingEnableDebug*
+	デバッグを有効にします。
+
+:MarchingDisableDebug				*:MarchingDisableDebug*
+	デバッグを無効にします。
+
+------------------------------------------------------------------------------
+関数						*marching-functions*
+
+------------------------------------------------------------------------------
+キーマッピング					*marching-key-mappings*
+
+<Plug>(marching_start_omni_complete)		*<Plug>(marching_start_omni_complete)*
+	オムニ補完を行います。
+	このマッピングでオムニ補完を実行した場合、補完ワードはカーソル位置に挿
+	入されません。
+
+					*<Plug>(marching_force_start_omni_complete)*
+<Plug>(marching_force_start_omni_complete)
+	基本的には |<Plug>(marching_start_omni_complete)| と同じ挙動ですが、補
+	完情報の再取得を行います。
+	詳しくは |marching-caching| を参照して下さい。
+
+
+==============================================================================
+設定						*marching-setting*
+
+------------------------------------------------------------------------------
+変数						*marching-variables*
+
+g:marching_clang_command			*g:marching_clang_command*
+	外部コマンド clang のパスです。
+Default: >
+	let g:marching_clang_command = "clang"
+<
+
+g:marching#clang_command#options		*g:marching#clang_command#options*
+	|g:marching_clang_command| へ渡すコマンドオプションです。
+	|filetype| をキーとした辞書を設定します。
+Default: >
+	let g:marching#clang_command#options = {
+	\	"cpp" : "-std=gnu++1y"
+	\}
+<
+	以前の名前 *g:marching_clang_command_option*
+
+g:marching_wait_time				*g:marching_wait_time*
+	最初にコマンドを実行した際の待ち時間秒数を Float 値でを設定します。
+	この変数に設定された時間内に補完処理が終了すれば即座に補完ウィンドウが
+	表示されます。
+Default: >
+	let g:marching_wait_time = 0.5
+<
+
+g:marching_enable_auto_select			*g:marching_enable_auto_select*
+	0 が設定されていれば候補は選択されません。
+Default: >
+	let g:marching_enable_auto_select = 0
+<
+
+g:marching_include_paths			*g:marching_include_paths*
+	参照するインクルードディレクトリのパスをリストで設定します。
+	また、この変数以外にも 'path' に設定されているディレクトリもインクルー
+	ドディレクトリとして使用されます。
+Default: >
+	let g:marching_include_paths = []
+<
+	また、Linux 環境では一部のインクルードディレクトリが正しく認識されませ
+	ん。
+	C++ の標準ヘッダーを使用する場合は次のようにインクルードディレクトリを
+	設定する必要があります。
+	参照：https://github.com/osyo-manga/vim-marching/issues/4
+Example: >
+	let g:marching_include_paths = filter(
+	\	split(glob('/usr/include/c++/*'), '\n') +
+	\	split(glob('/usr/include/*/c++/*'), '\n') +
+	\	split(glob('/usr/include/*/'), '\n'),
+	\	'isdirectory(v:val)')
+<
+
+
+g:marching_enable_neocomplete			*g:marching_enable_neocomplete*
+	|neocomplete| と併用して使用する場合は 1 を設定する必要があります。
+Default: >
+	let g:marching_enable_neocomplete = 0
+<
+
+b:marching_clang_command			*b:marching_clang_command*
+	|g:marching_clang_command| と同等の設定です。
+	|g:marching_clang_command| よりも優先して使用されます。
+
+b:marching_clang_command_option			*b:marching_clang_command_option*
+	|g:marching#clang_command#options| と同等の設定ですが、辞書ではなくて
+	文字列を設定します。
+	|g:marching#clang_command#options| よりも優先して使用されます。
+Default: >
+	let b:marching_clang_command_option = "-std=gnu++1y"
+<
+
+g:marching_debug				*g:marching_debug*
+	1 が設定されているとデバッグ用のログを記録します。
+	このログは |:MarchingDebugLog| で確認する事ができます。
+Default: >
+	let g:marching_debug = 0
+<
+
+g:marching_backend				*g:marching_backend*
+	コード補完を行う処理を設定します。
+	この変数には以下の文字列が設定できます。
+	
+	"clang_command"      : 非同期処理でコード補完を行います。
+	"sync_clang_command" : 同期処理でコード補完を行います。
+			     : この設定の場合は |vimproc| には依
+			       存しなくなります
+	"sync_wandbox"	     : wandbox を使用して補完を行います。
+			       詳しくは |marching-wandbox| を参照下さい。
+Default: >
+	let g:marching_backend = "clang_command"
+<
+
+g:marching_enable_refresh_always		*g:marching_enable_refresh_always*
+	1 が設定されているとキー入力がされるたびに補完関数の呼び出しが行われま
+	す。
+	キー入力が行われるたびに処理の更新を行いたい場合は 1 を設定して下さ
+	い。
+	他の補完処理の補完ウィンドウが出ている状態で処理の更新を行いたい場合に
+	も有効です。
+	また、1 を設定すると補完ウィンドウがちらつく事があります。
+Default: >
+	let g:marching_enable_refresh_always = 0
+<
+
+g:marching_enable_dup				*g:marching_enable_dup*
+	0 が設定されている場合は複数の候補があった時に1つのみ表示します。
+	1 が設定されている場合はその分だけ表示します。
+Default: >
+	let g:marching_enable_dup = 1
+<
+
+g:marching#sync_wandbox#timeout			*g:marching#sync_wandbox#timeout*
+	|marching-wandbox| を使用した場合のタイムアウトを文字列で設定します。
+	タイムアウトを行いたくない場合は空の文字列を設定して下さい。
+Default: >
+	let g:marching#sync_wandbox#timeout = ""
+<
+
+
+
+==============================================================================
+wandbox						*marching-wandbox*
+
+wandbox とは Web 上でコードを実行することができる Web サービスです。
+
+- wandbox http://melpon.org/wandbox/
+
+
+このサービスを利用してローカルに Clang がなくても Vim からコード補完を行うこと
+できます。
+ただし、カレントバッファ以外のコード（ローカルのヘッダーファイル等を include し
+ている場合など）は正しく補完されないので注意して下さい。
+また、この実装を使用した場合、他のプラグインに依存しませんが外部コマンドとして
+curl か wget コマンドが必要になります。
+
+
+Example: >
+	" wandbox を使用するための設定
+	let g:marching_clang_command = ""
+	let g:marching_backend="sync_wandbox"
+	
+	" wandbox へ渡されるオプション
+	let g:marching_clang_command_option = "-std=gnu++1y"
+<
+
+この時に使用される環境は以下のようになります。
+
+- clang HEAD 3.5 (trunk 199132)
+- Boost 1.55.0
+- Sprout
+
+
+
+
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
