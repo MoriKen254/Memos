@@ -13,7 +13,7 @@
   - [数値書式指定で符号（プラス）を表示したいのですが](http://www.atmarkit.co.jp/bbs/phpBB/viewtopic.php?topic=41571&forum=7)
 
 ##C#フォーム上にGNUPLOTで作成したグラフをのせる
-### [Visual C# .NET to call GNUPLOT](http://civilyarou.web.fc2.com/WANtaroHP/subgnuplot2-1.html)
+### [Visual C# .NET to call GNUPLOT](https://social.msdn.microsoft.com/Forums/vstudio/en-US/fd4d7e32-e0b1-4475-877e-a929978eb2d6/visual-c-net-to-call-gnuplot)
 - 一回画像で保存して読み込むのがスタンダード
 ### コードからの`plot`パス区切り指定
 - `/`でしたほうが良い．
