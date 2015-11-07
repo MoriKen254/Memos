@@ -15,12 +15,14 @@
 ##C#フォーム上にGNUPLOTで作成したグラフをのせる
 ### [Visual C# .NET to call GNUPLOT](https://social.msdn.microsoft.com/Forums/vstudio/en-US/fd4d7e32-e0b1-4475-877e-a929978eb2d6/visual-c-net-to-call-gnuplot)
 - 一回画像で保存して読み込むのがスタンダード
+
 ### コードからの`plot`パス区切り指定
 - `/`でしたほうが良い．
   - `\`でするとなるとやっかい．
   - まず，`gnuplot`で`\`をエスケープするため`\\`が必要．`plot ".\\data\\test.dat"`．
   - 更に，コード内でも`\`をエスケープするため，更に`\\`が必要．`plot \".\\\\data\\\\test.dat\"`．泣きたい．
   - `/`ならすっきり．`plot \"./data/test.dat\"`
+
 ### `gnuplot`を呼び出すときにターミナルを表示させない
 - [ウィンドウの状態を最大化、最小化、非表示にして、外部アプリケーションを起動する](http://dobon.net/vb/dotnet/process/processwindowstyle.html)
 
@@ -33,3 +35,7 @@
   processStartInfo.CreateNoWindow = true; // 非表示にする．
   Process extPro = Process.Start(processStartInfo); // gnuplot開始
   ```
+
+### 画像がロックされて消せない問題を解消
+- [表示中の画像ファイルが削除できない問題の解決法](http://dobon.net/vb/dotnet/graphics/drawpicture2.html)
+- `Image.FromFile`ではなく，`Image.FromStream`を使う．
