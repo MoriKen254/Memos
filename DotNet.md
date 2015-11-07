@@ -36,6 +36,5 @@
   Process extPro = Process.Start(processStartInfo); // gnuplot開始
   ```
 
-### 画像がロックされて消せない問題を解消
-- [表示中の画像ファイルが削除できない問題の解決法](http://dobon.net/vb/dotnet/graphics/drawpicture2.html)
+### [表示中の画像ファイルが削除できない問題の解決法](http://dobon.net/vb/dotnet/graphics/drawpicture2.html)
 - `Image.FromFile`ではなく，`Image.FromStream`を使う．
