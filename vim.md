@@ -78,6 +78,7 @@
   - http://cohama.hateblo.jp/entry/20120417/1334679297
 - fugitive
   - http://yuku-tech.hatenablog.com/entry/20110427/1303868482
+  - http://cohama.hateblo.jp/entry/20120317/1331978764
 
 ##リモート通信時のログイン情報入力省略
 - ~/.netrc にユーザ名/パスワードを書く
