@@ -67,7 +67,15 @@
   - 行きたい画面内の任意の文字に簡単にジャンプ
   - 矯正トレーニング: http://at-grandpa.hatenablog.jp/entry/2015/02/06/093705
   - vimrc設定：http://qiita.com/himinato/items/5fcdb3ad2885f0bc1ce6
-  
+
+## Git連携
+- 概要
+  - http://d.hatena.ne.jp/Ox8000ffff/20131225/1387978376
+- Gitv
+  - http://cohama.hateblo.jp/entry/20120417/1334679297
+- fugitive
+  - http://yuku-tech.hatenablog.com/entry/20110427/1303868482
+
 ##リモート通信時のログイン情報入力省略
 - ~/.netrc にユーザ名/パスワードを書く
 ```bash
