@@ -19,6 +19,9 @@
 ##関数定義ジャンプ
 - ctags: http://qiita.com/soramugi/items/7014c866b705e2cd0b95
 
+##ヤンクしたレジスタ情報からペーストしたい
+- http://cohama.hateblo.jp/entry/20130108/1357664352
+
 ##GVimを透過したい
 - ubuntu: ccsmをインストール
   - インストール手順: http://qiita.com/mayami/items/2635d24c6f67c8277308
