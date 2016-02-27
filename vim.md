@@ -1,4 +1,6 @@
 #Vim Tips
+##一般
+ - [『実践Vim』を読んで学んだ、おすすめVimデフォルト機能33個](http://myenigma.hatenablog.com/entry/2015/12/19/081933)
 
 ##WindowsでVim
 - インストール
