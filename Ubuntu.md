@@ -16,6 +16,17 @@
  - 途中'ttf-mscorefonts-installer'がどうのこうのって画面がでるのは←→適当に押して「了解」ボタンまですすんでEnterすれば先に進める。
  - Kindleのインストーラ実行中に足りないパッケージが云々と言われるので、全部インストールをクリック。
 
+##Anki
+ - [Ankiの本家サイト](http://ankisrs.net/)から.debパッケージをダウンロード
+ - `gdebi`を入れていなければ入れる．ローカルパッケージを依存関係を解決しながらインストールしてくれるスグレモノ．
+```bash
+sudo apt-get install gdebi
+```
+ - .deb をインストール
+```bash
+sudo gdebi anki-2.0.33.deb
+```
+
 ##Git の状態をpromptで表示
  - http://tm.root-n.com/unix:command:git:bash_prompt
 
