@@ -38,6 +38,9 @@
   - 一部プラグインはこっちじゃないとだめっぽい（VimShellとか）。NeoBundleがダメだったら試してみる。
   - http://qiita.com/rbtnn/items/600ac451ebb43b2c9c13
 - unite.vim: http://d.hatena.ne.jp/osyo-manga/20130307/1362621589
+ - http://www.karakaram.com/vimfiler
+ - http://qiita.com/knt45/items/6f16c6b041ce309076d6
+ - http://qiita.com/hide/items/77b9c1b0f29577d60397
 - vimfiler.vim: http://www.karakaram.com/vimfiler
 - vimshell:http://qiita.com/cuminseed/items/162730d678b18adcec67
   - なぜかNeoBundleでさっぱり入らない。手で入れたほうが速い。
