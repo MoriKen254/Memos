@@ -1,0 +1,10 @@
+# Raspberry Pi 2 x Ubuntu 14.04
+
+### インストール
+- [Raspberry Pi 2にUbuntu 14.04を入れてみた](http://qiita.com/mechamogera/items/2c21b125937b70a80aca)
+- [Raspberry Pi 2でUbuntu14.04を使う](http://qiita.com/rytmrt/items/9c4601586479fff6d77c)
+
+### ROS連携
+- [RaspberryPi2からTurtleBot2（kobuki）をROSで動かす](http://qiita.com/sayonari/items/a9721afd92e2bfb34964)
+  - Ubuntu インストールのところからとてもまとまっている
+- [github ryuichiueda/ros_setup_scripts_Ubuntu14.04_server](https://github.com/ryuichiueda/ros_setup_scripts_Ubuntu14.04_server)
