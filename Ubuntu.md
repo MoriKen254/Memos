@@ -10,6 +10,8 @@
 ##文字入力
 - Mozc Fcitxの動作設定を行う（全体の設定の拡張オプション・ホットッキー その1）
   - http://kledgeb.blogspot.jp/2013/12/ubuntu-fcitx-11-fcitx-1.html
+- Ctrl, Caps lock swap
+  - https://forums.ubuntulinux.jp/viewtopic.php?pid=103155#p103155
 
 ##Kindle for Windows
  - Wineをインストールすればok: http://mogi2fruits.net/blog/os-software/linux/ubuntu/3008/
