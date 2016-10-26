@@ -1,3 +1,6 @@
+# 初期設定
+- パスワード入力省略
+  - http://qiita.com/azusanakano/items/8dc1d7e384b00239d4d9
 # 小技コマンド集
 - git resetを取り消す
   - http://yanor.net/wiki/?Git%2Fgit%20reflog%20%EF%BC%88git%20reset%E3%82%92%E5%8F%96%E3%82%8A%E6%B6%88%E3%81%99%EF%BC%89
