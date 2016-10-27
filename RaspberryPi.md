@@ -17,9 +17,9 @@
 - インストール直後はキーボード配置が英語
   - とりあえず[この対応図](http://www.nagasaki-gaigo.ac.jp/toguchi/pc/multilingual/keyboard_us_jis.htm)を診ながら作業。 
   - [Ubuntu 14.04 betaでキーボードレイアウトを日本語に戻す ibus-mozc編](http://ubuntu.hatenablog.jp/entry/20140403/1396524520)
-- キーボード周りで何か設定していたときに[[By default the combination Control + Alt + Backspace does nothing. If you want it can be used to terminate the X server.]と聞かれて困った]
-  - [おもいたったがきちじつ キーボード設定](http://namakemono345.com/kichijitsu/RaspberryPi/index/install.html#1)
-- `gnome-tweak-tool`を起動しようとしたら`Shell not running`って怒られる。
+- キーボード周りで何か設定していたときに[By default the combination Control + Alt + Backspace does nothing. If you want it can be used to terminate the X server.]と聞かれて困った
+- [おもいたったがきちじつ キーボード設定](http://namakemono345.com/kichijitsu/RaspberryPi/index/install.html#1)
+- `gnome-tweak-tool`を起動しようとしたら`Shell not running`って怒られ
   - [Add the official Gnome Shell Extensions ppa](http://askubuntu.com/questions/239648/gnome-tweak-tool-wont-start-with-user-themes-in-gnome-shell/239653#239653)
 - 日本語が入力できない
   - [Ubuntu 14.04 英語版 (64bit) インストール後に設定したこと](http://www.cs.gunma-u.ac.jp/~nagai/wiki/index.php?Ubuntu%2014.04%20%B1%D1%B8%EC%C8%C7%20(64bit)%20%A5%A4%A5%F3%A5%B9%A5%C8%A1%BC%A5%EB%B8%E5%A4%CB%C0%DF%C4%EA%A4%B7%A4%BF%A4%B3%A4%C8)
