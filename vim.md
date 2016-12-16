@@ -2,6 +2,15 @@
 ##一般
  - [『実践Vim』を読んで学んだ、おすすめVimデフォルト機能33個](http://myenigma.hatenablog.com/entry/2015/12/19/081933)
 
+## NeoBundle で`未知の関数です: neobundle#begin`と怒られる
+```bash
+rm -rf ~/.vim/bundle
+curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh
+sh ./install.sh
+rm -rf install.sh
+```
+この後Vim を起動すればOK.
+
 ##WindowsでVim
 - インストール
   - http://ylgbk.hatenablog.com/entry/2015/01/07/120000 
