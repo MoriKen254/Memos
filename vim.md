@@ -5,6 +5,7 @@
 ## NeoBundle で`未知の関数です: neobundle#begin`と怒られる
 ```bash
 rm -rf ~/.vim/bundle
+sudo apt-get install curl 
 curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install.sh
 sh ./install.sh
 rm -rf install.sh
