@@ -1,5 +1,5 @@
-#Vim Tips
-##一般
+# Vim Tips
+## 一般
  - [『実践Vim』を読んで学んだ、おすすめVimデフォルト機能33個](http://myenigma.hatenablog.com/entry/2015/12/19/081933)
 
 ## NeoBundle で`未知の関数です: neobundle#begin`と怒られる
@@ -12,7 +12,7 @@ rm -rf install.sh
 ```
 この後Vim を起動すればOK.
 
-##WindowsでVim
+## WindowsでVim
 - インストール
   - http://ylgbk.hatenablog.com/entry/2015/01/07/120000 
   - molokai.vim の場所注意
@@ -28,26 +28,26 @@ rm -rf install.sh
   - OSのビット数によって違う。両方突っ込んでおけばとりあえず問題は無かろうかと。
 - neobundleの記述は_vimrcと_gvimrcの両方に書かないといけない。どちらか一方だけだと挙動不良となる。
 
-##関数定義ジャンプ
+## 関数定義ジャンプ
 - ctags: http://qiita.com/soramugi/items/7014c866b705e2cd0b95
 
-##ヤンクしたレジスタ情報からペーストしたい
+## ヤンクしたレジスタ情報からペーストしたい
 - http://cohama.hateblo.jp/entry/20130108/1357664352
 
-##GVimを透過したい
+## GVimを透過したい
 - ubuntu: ccsmをインストール
   - インストール手順: http://qiita.com/mayami/items/2635d24c6f67c8277308
   - 動いた設定: https://forums.ubuntulinux.jp/viewtopic.php?id=13514
 - windows
   - `_gvimrcに追記`:`set transparency=220`
 
-##拡張子毎の強調表示設定を追加したい
+## 拡張子毎の強調表示設定を追加したい
 - `/usr/share/vim/vim74/filetype.vim`を編集する: http://www.mazn.net/blog/2009/08/03/230.html
 
-##特殊文字
+## 特殊文字
 - [改行やタブで置換する](http://bibo-pg.blogspot.jp/2012/08/vim.html)
 
-##プラグイン使い方
+## プラグイン使い方
 - neobundle
   - http://qiita.com/kazu0620/items/819679ef006d973c6c22
   - http://qiita.com/himinato/items/caf5a0b19ce893a75363
@@ -95,7 +95,7 @@ rm -rf install.sh
   - http://yuku-tech.hatenablog.com/entry/20110427/1303868482
   - http://cohama.hateblo.jp/entry/20120317/1331978764
 
-##リモート通信時のログイン情報入力省略
+## リモート通信時のログイン情報入力省略
 - ~/.netrc にユーザ名/パスワードを書く
 ```bash
 machine github.com
