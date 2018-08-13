@@ -1,4 +1,10 @@
 # Tips
+## home以下のフォルダ名を英語に
+```bash
+LANG=C xdg-user-dirs-gtk-update
+```
+- 出展: [Ubuntuでホームディレクトリの中身を英語にする](https://qiita.com/taiko19xx/items/d1a001bfc25245b91354)
+
 ## Terminater 透過
 - 参考サイト: http://d.hatena.ne.jp/yohei-a/20140223/1393120021
  
