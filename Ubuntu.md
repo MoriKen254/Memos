@@ -8,6 +8,10 @@ LANG=C xdg-user-dirs-gtk-update
 ## Terminater 透過
 - 参考サイト: http://d.hatena.ne.jp/yohei-a/20140223/1393120021
  
+## リソース可視化
+- indicator-multiload
+  - https://kledgeb.blogspot.com/2012/12/ubuntu-1.html
+ 
 ## アプリケーション関連付け
 - エクスプローラから対象ファイルを右クリック→プロパティ
 - 開き方タブを開き、規定のアプリケーションを選択。
