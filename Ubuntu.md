@@ -1,4 +1,11 @@
 # Tips
+## Ubuntu 20.04
+### Wifi
+- https://qiita.com/takaf05/items/5034e9234331ed6ecf2f
+  - make install で失敗
+- https://github.com/aircrack-ng/rtl8812au
+  - sudo make dkms_install で入った。
+  
 ## home以下のフォルダ名を英語に
 ```bash
 LANG=C xdg-user-dirs-gtk-update
