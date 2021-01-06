@@ -3,6 +3,13 @@
 ### 日本語入力（Mozc）
 - https://qiita.com/cordy/items/b72815148dd29c3d4bde
 
+### fd
+```bash
+$ cargo install fd-find
+```
+
+- https://wonderwall.hatenablog.com/entry/2019/03/06/224000
+
 ### Wifi
 - https://qiita.com/takaf05/items/5034e9234331ed6ecf2f
   - make install で失敗
