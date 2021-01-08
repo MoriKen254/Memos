@@ -10,6 +10,11 @@ $ cargo install fd-find
 
 - https://wonderwall.hatenablog.com/entry/2019/03/06/224000
 
+### rg
+```bash
+$ cargo install ripgrep
+```
+
 ### Wifi
 - https://qiita.com/takaf05/items/5034e9234331ed6ecf2f
   - make install で失敗
