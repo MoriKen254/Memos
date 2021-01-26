@@ -36,7 +36,7 @@ $ vim ~/.config/user-dirs.dirs
 ```
 
 ```
-XDG_DESKTOP_DIR="$HOME/Desctop"
+XDG_DESKTOP_DIR="$HOME/Desktop"
 ```
 
 と設定して、再起動。
