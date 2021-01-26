@@ -27,6 +27,22 @@ LANG=C xdg-user-dirs-gtk-update
 ```
 - 出展: [Ubuntuでホームディレクトリの中身を英語にする](https://qiita.com/taiko19xx/items/d1a001bfc25245b91354)
 
+## デスクトップフォルダとファイルが消えたときの対処法
+多分 Trush に入っちゃった。復元してみるか、~ 直下に Desktop フォルダを作る。
+その後下記を編集。
+
+```bash
+$ vim ~/.config/user-dirs.dirs
+```
+
+```
+XDG_DESKTOP_DIR="$HOME/Desctop"
+```
+
+と設定して、再起動。
+
+- https://qastack.jp/ubuntu/182917/desktop-folder-and-files-disappeared
+
 ## Terminater 透過
 - 参考サイト: http://d.hatena.ne.jp/yohei-a/20140223/1393120021
  
