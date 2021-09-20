@@ -5,6 +5,7 @@
 
 ### fd
 ```bash
+$ sudo apt install cargo  # in not installed
 $ cargo install fd-find
 ```
 
@@ -12,6 +13,7 @@ $ cargo install fd-find
 
 ### rg
 ```bash
+$ sudo apt install cargo  # in not installed
 $ cargo install ripgrep
 ```
 
